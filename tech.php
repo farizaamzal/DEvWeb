@@ -47,8 +47,18 @@ $whatismyipCountry = (string)$whatismyipXml->server_data->country ?? "Non détec
     <meta name="author" content="Fariza et Nadjib"/>
     <link rel="icon" href="./images/favicon.jpeg"/>
     <link rel="stylesheet" href="styles.css"/>
+    <style>
+        header, footer {
+            background-color: #4682B4; /* Bleu foncé */
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+    </style>
 </head>
 <body>
+    <header></header>
     <h1>Bienvenue sur la page Développeur</h1>
 
     <!-- 🔹 NASA APOD -->
