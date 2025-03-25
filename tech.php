@@ -13,14 +13,15 @@ $response = @file_get_contents($apiUrl);
 
 
 // 🔹 2. GeoPlugin (XML)
-$ip = "193.54.115.192";
-$geoUrl = "http://www.geoplugin.net/xml.gp?ip=$ip";
+$iip = "193.54.115.192";
+$geoUrl = "http://www.geoplugin.net/xml.gp?ip=$iip";
 $geoXml = @simplexml_load_file($geoUrl);
 $city = $geoXml->geoplugin_city?? "Ville non détectée";
 $country = $geoXml->geoplugin_countryName ?? "Pays non détecté";
 
 // 🔹 3. ipinfo.io (JSON supplémentaire)
-$ipinfoUrl = "https://ipinfo.io/193.54.115.192/geo";
+$ip = $_SERVER['REMOTE_ADDR']; // Récupère l'IP du visiteur
+$ipinfoUrl = "https://ipinfo.io/$ip/geo"; // URL de l'API
 $ipinfoResponse = @file_get_contents($ipinfoUrl);
 $ipinfoCity = "Non détectée";
 $ipinfoCountry = "Non détecté";
@@ -70,12 +71,12 @@ $whatismyipCountry = (string)$whatismyipXml->server_data->country ?? "Non détec
     <p><?php echo $description; ?></p>
 
     <!-- 🔹 GeoPlugin -->
-    <h2>📍 Localisation GeoPlugin (IP : <?php echo $ip; ?>)</h2>
+    <h2>📍 Localisation GeoPlugin (IP : <?php echo $iip; ?>)</h2>
     <p>Ville : <?php echo $city; ?></p>
     <p>Pays : <?php echo $country; ?></p>
 
     <!-- 🔹 ipinfo.io -->
-    <h2>📍 Localisation ipinfo.io (IP : 193.54.115.192)</h2>
+    <h2>📍 Localisation ipinfo.io (IP : <?php echo $ip;?>)</h2>
     <p>Ville : <?php echo $ipinfoCity; ?></p>
     <p>Pays : <?php echo $ipinfoCountry; ?></p>
 
