@@ -4,22 +4,20 @@ $apiKey = "WejnCDC0fIVzW3tEUw6p9E20Ct2FN6r5IZFuirda";
 $date = date("Y-m-d"); // Date du jour actuel (ex. 2025-03-24 aujourd'hui)
 $apiUrl = "https://api.nasa.gov/planetary/apod?api_key=$apiKey&date=$date";
 $response = @file_get_contents($apiUrl);
-if ($response === false || !($data = json_decode($response, true)) || !is_array($data)) {
-    $mediaUrl = "";
-    $mediaType = "";
-    $description = "Erreur : impossible de contacter l'API NASA ou données invalides.";
-} else {
-    $mediaUrl = isset($data['url']) ? $data['url'] : "";
-    $mediaType = isset($data['media_type']) ? $data['media_type'] : "";
-    $description = isset($data['explanation']) ? $data['explanation'] : "Erreur : données NASA indisponibles";
-}
+
+    $data = json_decode($response, true);
+    $title = $data['title'] ?? "Titre non disponible";
+    $mediaUrl = $data['url'] ?? "";
+    $mediaType = $data['media_type'] ?? "";
+    $description = $data['explanation'] ??  "Erreur : données NASA indisponibles";
+
 
 // 🔹 2. GeoPlugin (XML)
 $ip = "193.54.115.192";
 $geoUrl = "http://www.geoplugin.net/xml.gp?ip=$ip";
 $geoXml = @simplexml_load_file($geoUrl);
-$city = $geoXml && isset($geoXml->geoplugin_city) ? $geoXml->geoplugin_city : "Ville non détectée";
-$country = $geoXml && isset($geoXml->geoplugin_countryName) ? $geoXml->geoplugin_countryName : "Pays non détecté";
+$city = $geoXml->geoplugin_city?? "Ville non détectée";
+$country = $geoXml->geoplugin_countryName ?? "Pays non détecté";
 
 // 🔹 3. ipinfo.io (JSON supplémentaire)
 $ipinfoUrl = "https://ipinfo.io/193.54.115.192/geo";
@@ -28,16 +26,16 @@ $ipinfoCity = "Non détectée";
 $ipinfoCountry = "Non détecté";
 if ($ipinfoResponse !== false) {
     $ipinfoData = json_decode($ipinfoResponse, true);
-    $ipinfoCity = isset($ipinfoData['city']) ? $ipinfoData['city'] : "Non détectée";
-    $ipinfoCountry = isset($ipinfoData['country']) ? $ipinfoData['country'] : "Non détecté";
+    $ipinfoCity = $ipinfoData['city'] ?? "Non détectée";
+    $ipinfoCountry = $ipinfoData['country'] ?? "Non détecté";
 }
 
 // 🔹 4. whatismyip.com (XML)
-$whatismyipKey = "2601134e43ca2368b2dfd6173787449f";
+$whatismyipKey = "4be75613bed0830e5e5f0d2c934e91ca";
 $whatismyipUrl = "https://api.whatismyip.com/ip-address-lookup.php?key=$whatismyipKey&input=193.54.115.235&output=xml";
 $whatismyipXml = @simplexml_load_file($whatismyipUrl);
-$whatismyipCity = $whatismyipXml && isset($whatismyipXml->server_data->city) ? (string)$whatismyipXml->server_data->city : "Non détectée";
-$whatismyipCountry = $whatismyipXml && isset($whatismyipXml->server_data->country) ? (string)$whatismyipXml->server_data->country : "Non détecté";
+$whatismyipCity = (string)$whatismyipXml->server_data->city ?? "Non détectée";
+$whatismyipCountry = (string)$whatismyipXml->server_data->country ?? "Non détecté";
 ?>
 
 <!DOCTYPE html>
@@ -54,6 +52,7 @@ $whatismyipCountry = $whatismyipXml && isset($whatismyipXml->server_data->countr
 
     <!-- 🔹 NASA APOD -->
     <h2>🌌 Image/Vidéo du jour (NASA - <?php echo $date; ?>)</h2>
+    <h3><?php echo $title;?></h3>
     <?php if ($mediaUrl): ?>
         <?php if ($mediaType == "image"): ?>
             <img src="<?php echo $mediaUrl; ?>" alt="Image NASA" width="400"/>
