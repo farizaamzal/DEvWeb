@@ -3,8 +3,10 @@
 $apiKey = "WejnCDC0fIVzW3tEUw6p9E20Ct2FN6r5IZFuirda";
 $date = date("Y-m-d"); // Date du jour actuel (ex. 2025-03-24 aujourd'hui)
 $apiUrl = "https://api.nasa.gov/planetary/apod?api_key=$apiKey&date=$date";
+// file_get_contents($apiUrl) envoie une requête HTTP à l'API et récupère la réponse sous forme de chaîne JSON
 $response = @file_get_contents($apiUrl);
 
+    //convertit la chaîne JSON en un tableau associatif PHP
     $data = json_decode($response, true);
     $title = $data['title'] ?? "Titre non disponible";
     $mediaUrl = $data['url'] ?? "";
@@ -14,8 +16,8 @@ $response = @file_get_contents($apiUrl);
 
 // 🔹 2. GeoPlugin (XML)
 $iip = "193.54.115.192";
-$geoUrl = "http://www.geoplugin.net/xml.gp?ip=$iip";
-$geoXml = @simplexml_load_file($geoUrl);
+$geoUrl = "http://www.geoplugin.net/xml.gp?ip=$iip"; //Cette requête retourne des données XML contenant des infos sur la ville, le pays, etc
+$geoXml = @simplexml_load_file($geoUrl); //simplexml_load_file($geoUrl) charge le contenu XML renvoyé par l'API en un objet SimpleXML
 $city = $geoXml->geoplugin_city?? "Ville non détectée";
 $country = $geoXml->geoplugin_countryName ?? "Pays non détecté";
 
@@ -31,12 +33,20 @@ if ($ipinfoResponse !== false) {
     $ipinfoCountry = $ipinfoData['country'] ?? "Non détecté";
 }
 
-// 🔹 4. whatismyip.com (XML)
-$whatismyipKey = "4be75613bed0830e5e5f0d2c934e91ca";
-$whatismyipUrl = "https://api.whatismyip.com/ip-address-lookup.php?key=$whatismyipKey&input=193.54.115.235&output=xml";
+$whatismyipKey = "4be75613bed0830e5e5f0d2c934e91ca";//On définit une clé API ($whatismyipKey) pour s'authentifier auprès de WhatIsMyIP.com
+$whatismyipUrl = "https://api.whatismyip.com/ip-address-lookup.php?key=$whatismyipKey&input=193.54.115.235&output=xml"; //On construit l'URL pour interroger l'API
+
+// On récupère les données XML
 $whatismyipXml = @simplexml_load_file($whatismyipUrl);
-$whatismyipCity = (string)$whatismyipXml->server_data->city ?? "Non détectée";
-$whatismyipCountry = (string)$whatismyipXml->server_data->country ?? "Non détecté";
+
+// Vérification si la requête a réussi
+if ($whatismyipXml !== false && isset($whatismyipXml->server_data)) {
+    $whatismyipCity = (string)$whatismyipXml->server_data->city ?? "Non détectée";
+    $whatismyipCountry = (string)$whatismyipXml->server_data->country ?? "Non détecté";
+} else {
+    $whatismyipCity = "Non détectée";
+    $whatismyipCountry = "Non détecté";
+}
 ?>
 
 <!DOCTYPE html>
@@ -45,7 +55,7 @@ $whatismyipCountry = (string)$whatismyipXml->server_data->country ?? "Non détec
     <meta charset="UTF-8">
     <title>Page Tech</title>
     <meta name="author" content="Fariza et Nadjib"/>
-    <link rel="icon" href="./images/favicon.jpeg"/>
+    <link rel="icon" href="./images/favicon.png"/>
     <link rel="stylesheet" href="styles.css"/>
     <style>
         header, footer {
