@@ -4,16 +4,14 @@
     <meta charset="UTF-8"/>
     <meta name="author" content="Fariza et Nadjib"/>
     <title>Accueil - Météo & Tech</title>
-    <link rel="icon" href="./images/favicon.jpeg"/>
+    <link rel="icon" href="./images/favicon.png"/>
     <link rel="stylesheet" href="styles.css"/>
     <style>
-        /* Style de l'en-tête */
-        header {
-        background-image: url('./images/header.jpg');
-        background-size: contain;   
-        background-position: center center; /* Centrer l'image dans le header */
-        height: 200px;   /* Hauteur de ton header, tu peux ajuster selon tes besoins */
-        width: 100%;     /* La largeur est 100% pour remplir toute la largeur de l'écran */
+        header, footer {
+            background-color: #4682B4; /* Bleu foncé */
+            color: white;
+            text-align: center;
+            padding: 20px;
         }
 
     </style>
