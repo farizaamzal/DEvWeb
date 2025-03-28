@@ -278,4 +278,61 @@ function getWeatherData($lat, $lon, $apiKey) {
     ];
 }
 
+
+/**
+ * Récupère les prévisions météo pour les prochains jours en utilisant l'API OpenWeatherMap.
+ *
+ * Cette fonction interroge l'API "forecast" d'OpenWeatherMap pour obtenir les prévisions météorologiques
+ * toutes les 3 heures et extrait les informations principales pour chaque jour.
+ *
+ * @param float  $lat    Latitude de la ville
+ * @param float  $lon    Longitude de la ville
+ * @param string $apiKey Clé API OpenWeatherMap
+ *
+ * @return array Retourne un tableau associatif contenant les prévisions par date :
+ *               [
+ *                   "YYYY-MM-DD" => [
+ *                       "temperature" => (float) Température moyenne du jour,
+ *                       "description" => (string) Description du temps (ex: "ciel dégagé"),
+ *                       "humidity" => (int) Taux d'humidité (%),
+ *                       "wind_speed" => (float) Vitesse du vent (m/s)
+ *                   ],
+ *                   ...
+ *               ]
+ *               En cas d'échec, retourne ["Erreur" => "Impossible de récupérer les prévisions météo"]
+ */
+function getWeatherForecast($lat, $lon, $apiKey) {
+    // URL de l'API OpenWeatherMap (prévisions à 5 jours, toutes les 3 heures)
+    $url = "https://api.openweathermap.org/data/2.5/forecast?lat=$lat&lon=$lon&appid=$apiKey&units=metric&lang=fr";
+    
+    // Récupération des données via HTTP
+    $response = @file_get_contents($url);
+
+    if ($response !== false) {
+        // Décodage de la réponse JSON en tableau PHP
+        $data = json_decode($response, true);
+        $forecast = [];
+
+        // Parcourir la liste des prévisions
+        foreach ($data['list'] as $item) {
+            $date = date("Y-m-d", strtotime($item['dt_txt'])); // Extraire la date du format "YYYY-MM-DD HH:MM:SS"
+
+            // Si c'est la première prévision du jour, l'ajouter au tableau
+            if (!isset($forecast[$date])) {
+                $forecast[$date] = [
+                    'temperature' => round($item['main']['temp'], 1),  // Température en °C (arrondie)
+                    'description' => $item['weather'][0]['description'], // Description du temps (ex: "ciel dégagé")
+                    'humidity' => $item['main']['humidity'],  // Humidité en %
+                    'wind_speed' => $item['wind']['speed'] // Vitesse du vent en m/s
+                ];
+            }
+        }
+        return $forecast;
+    }
+
+    // En cas d'erreur, renvoyer un message d'erreur
+    return ["Erreur" => "Impossible de récupérer les prévisions météo"];
+}
+
+
 ?>

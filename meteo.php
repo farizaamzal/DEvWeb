@@ -22,6 +22,7 @@ if (!$selected_region || !$selected_departement || !$selected_ville || !$lat || 
 // Remplace par ta clé API OpenWeatherMap
 $weatherApiKey = "f8e571c228bd19a1c00cedc4a50ea893";
 $weatherData = getWeatherData($lat, $lon, $weatherApiKey);
+$weatherForecast = getWeatherForecast($lat, $lon, $weatherApiKey);
 ?>
 
 <main>
@@ -40,6 +41,19 @@ $weatherData = getWeatherData($lat, $lon, $weatherApiKey);
             <li><strong>Humidité :</strong> <?php echo $weatherData['humidity']; ?> %</li>
             <li><strong>Vitesse du vent :</strong> <?php echo $weatherData['wind_speed']; ?> m/s</li>
         </ul>
+        <h3>Prévisions météo pour les prochains jours :</h3>
+            <ul>
+                <?php foreach ($weatherForecast as $date => $info): ?>
+                    <li>
+                        <strong><?php echo htmlspecialchars($date); ?> :</strong>
+                        <?php echo $info['temperature']; ?> °C, 
+                        <?php echo htmlspecialchars($info['description']); ?>, 
+                        Humidité : <?php echo $info['humidity']; ?>%, 
+                        Vent : <?php echo $info['wind_speed']; ?> m/s
+                    </li>
+                    <?php endforeach; ?>
+            </ul>
+
     </section>
     <!-- Bouton retour en haut -->
     <a href="#" class="back-to-top">↑</a>

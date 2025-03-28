@@ -13,14 +13,13 @@ $styleParam = "style=" . ($_GET['style'] ?? 'normal');
     <meta charset="UTF-8"/>
     <meta name="author" content="Fariza et Nadjib"/>
     <title> <?=$title?> </title>
-    <link rel="icon" href="./images/favicon.png"/>
+    <link rel="icon" href="./images/weather.png"/>
     <!-- Lien vers le style dynamique (mode jour/nuit) -->
     <link rel="stylesheet" href="<?=$style?>" />
     <style>
-        header, footer {
-            background-color: #4682B4; /* Bleu foncé */
+        header, footer{
+            background-color:rgb(112, 182, 239); /* Bleu foncé */
             color: white;
-            text-align: center;
             padding: 20px;
         }
 
@@ -49,7 +48,7 @@ $styleParam = "style=" . ($_GET['style'] ?? 'normal');
 </head>
 <body>
     <header>
-        <a href="index.php"><img src="./images/weather.png" alt="meteo"></a>
+        <a href="index.php"><img src="./images/logo1.png" alt="meteo"></a>
         
             <!-- Bouton pour ouvrir le menu -->
             <a href="#sidebar" id="menuButton">☰ Menu</a>
