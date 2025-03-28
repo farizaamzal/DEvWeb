@@ -59,6 +59,7 @@ $styleParam = "style=" . ($_GET['style'] ?? 'normal');
                 <ul>
                     <li><a href="./index.php?<?= $styleParam ?>">Accueil</a></li>
                     <li><a href="./tech.php?style=<?php echo $_GET['style'] ?? 'normal'; ?>">Page developpeur</a></li>
+                    <li><a href="./regions.php?style=<?php echo $_GET['style'] ?? 'normal'; ?>">Régions</a></li>
 
                 </ul>
             </aside>
@@ -66,6 +67,7 @@ $styleParam = "style=" . ($_GET['style'] ?? 'normal');
                 <ul>
                     <li><a href="./index.php?style=<?php echo $_GET['style'] ?? 'normal'; ?>">Accueil</a></li>
                     <li><a href="./tech.php?style=<?php echo $_GET['style'] ?? 'normal'; ?>">Page developpeur</a></li>
+                    <li><a href="./regions.php?style=<?php echo $_GET['style'] ?? 'normal'; ?>">Régions</a></li>
                 </ul>
             </nav>
             <a href="index.php?style=normal" style=" background: white; color: black; border-radius: 15px; text-decoration: none;">☀</a>

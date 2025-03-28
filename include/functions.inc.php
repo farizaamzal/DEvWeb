@@ -121,4 +121,161 @@ function getWhatIsMyIPData($apik, $ip) {
     ];
 }
 
+
+// Définition du fichier où sera stocké le compteur
+define("FICHIER_COMPTEUR", "compteur.txt");
+
+/**
+ * Initialise le fichier compteur s'il n'existe pas.
+ */
+function initialiserCompteur() {
+    if (!file_exists(FICHIER_COMPTEUR)) {
+        file_put_contents(FICHIER_COMPTEUR, "0");
+    }
+}
+
+/**
+ * Récupère la valeur actuelle du compteur.
+ *
+ * @return int Nombre de visites enregistrées.
+ */
+function lireCompteur() {
+    initialiserCompteur(); // S'assure que le fichier existe
+    return (int) file_get_contents(FICHIER_COMPTEUR);
+}
+
+/**
+ * Incrémente le compteur de 1 et sauvegarde la nouvelle valeur.
+ */
+function incrementerCompteur() {
+    $compteur = lireCompteur() + 1; // Lire et incrémenter
+    file_put_contents(FICHIER_COMPTEUR, $compteur); // Sauvegarder
+}
+
+/**
+ * Affiche le compteur dans le footer.
+ */
+function afficherCompteur() {
+    echo "Nombre de visites : " . lireCompteur();
+}
+
+
+/**
+ * Lit un fichier CSV et retourne un tableau associatif
+ *
+ * @param string $fichier Le chemin du fichier CSV à lire
+ * @return array Un tableau contenant les données du fichier CSV sous forme de tableau associatif
+ */
+function lire_csv($fichier) {
+    $donnees = []; // Initialisation d'un tableau vide pour stocker les données
+
+    // Ouvrir le fichier CSV en mode lecture
+    if (($handle = fopen($fichier, "r")) !== FALSE) {
+        $entetes = fgetcsv($handle, 1000, ","); // Lire la première ligne (en-têtes de colonnes)
+
+        // Lire chaque ligne du fichier CSV
+        while (($ligne = fgetcsv($handle, 1000, ",")) !== FALSE) {
+            $donnees[] = array_combine($entetes, $ligne); // Associer les valeurs aux clés des en-têtes
+        }
+
+        fclose($handle); // Fermer le fichier après lecture
+    }
+
+    return $donnees; // Retourner les données lues
+}
+
+/**
+ * Construit un tableau associatif contenant la liste des régions et leurs départements
+ *
+ * @param string $fichier_regions Le fichier CSV contenant les régions
+ * @param string $fichier_departements Le fichier CSV contenant les départements
+ * @return array Un tableau associatif avec les noms des régions comme clé et une liste des départements comme valeur
+ */
+function construire_regions_departements_villes($fichier_regions, $fichier_departements, $fichier_villes) {
+    $regions = lire_csv($fichier_regions);
+    $departements = lire_csv($fichier_departements);
+    $villes = lire_csv($fichier_villes);
+
+    $regions_dict = [];
+    foreach ($regions as $region) {
+        $regions_dict[$region["REG"]] = $region["LIBELLE"];
+    }
+
+    $resultat = [];
+    foreach ($departements as $dep) {
+        $code_region = $dep["REG"];
+        $num_dep = $dep["DEP"];
+        $nom_dep = $dep["NCCENR"];
+        if (isset($regions_dict[$code_region])) {
+            $nom_region = $regions_dict[$code_region];
+            if (!isset($resultat[$nom_region])) {
+                $resultat[$nom_region] = [];
+            }
+            $resultat[$nom_region][$num_dep] = ["nom" => $nom_dep, "villes" => []];
+        }
+    }
+
+    foreach ($villes as $ville) {
+        $code_dep = $ville["department_number"]; // Remplacé CODE_DEP par department_number
+        $nom_ville = $ville["city_code"]; // Remplacé NOM_VILLE par city
+        $lat = $ville["latitude"]; // Remplacé LATITUDE par lattitude
+        $lon = $ville["longitude"]; // Remplacé LONGITUDE par longitude
+        foreach ($resultat as $nom_region => &$deps) {
+            if (isset($deps[$code_dep])) {
+                $deps[$code_dep]["villes"][] = [
+                    "nom" => $nom_ville,
+                    "lat" => $lat,
+                    "lon" => $lon
+                ];
+            }
+        }
+    }
+
+    return $resultat;
+}
+
+/**
+ * Affiche les régions et leurs départements sous forme de liste de définition HTML
+ *
+ * @param array $regions_departements Tableau associatif des régions et de leurs départements
+ */
+function afficher_liste_definitions($regions_departements) {
+    echo "<dl>\n"; // Début de la liste de définition
+    foreach ($regions_departements as $nom_region => $departements) {
+        echo "<dt><strong>$nom_region</strong></dt>\n"; // Affichage du nom de la région
+        foreach ($departements as $dep) {
+            echo "<dd>{$dep['num']} - {$dep['nom']}</dd>\n"; // Affichage des départements (numéro - nom)
+        }
+    }
+    echo "</dl>"; // Fin de la liste de définition
+}
+
+/**
+ * Récupère les données météo via l'API OpenWeatherMap
+ * @param float $lat Latitude de la ville
+ * @param float $lon Longitude de la ville
+ * @param string $apiKey Clé API OpenWeatherMap
+ * @return array Données météo
+ */
+function getWeatherData($lat, $lon, $apiKey) {
+    $weatherUrl = "https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=$apiKey&units=metric&lang=fr";
+    $response = file_get_contents($weatherUrl);
+
+    if ($response !== false) {
+        $data = json_decode($response, true);
+        return [
+            'temperature' => $data['main']['temp'] ?? "Non disponible",
+            'description' => $data['weather'][0]['description'] ?? "Non disponible",
+            'humidity' => $data['main']['humidity'] ?? "Non disponible",
+            'wind_speed' => $data['wind']['speed'] ?? "Non disponible",
+        ];
+    }
+    return [
+        'temperature' => "Erreur",
+        'description' => "Erreur lors de la récupération des données météo",
+        'humidity' => "Erreur",
+        'wind_speed' => "Erreur",
+    ];
+}
+
 ?>
