@@ -14,7 +14,7 @@ include_once './include/functions.inc.php';
         <div>&#169; Fariza AMZAL, Nadjib MOUSSAOUI</div>
             <div>mis à jour le 26 mars 2025</div>
             <div style="color: #f1f1f1;">
-            <a href="./planDuSite.php?style=<?php echo $_GET['style'] ?? 'normal'; ?>" style="color: inherit; text-decoration: none;">Plan du site</a>
+            <a href="./planDuSite.php?style=<?php echo $_GET['style'] ?? 'normal'; ?>">Plan du site</a>
             </div>
             <div>
                 <?php afficherCompteur(); ?>
