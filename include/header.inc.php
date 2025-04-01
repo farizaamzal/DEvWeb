@@ -137,8 +137,9 @@ $styleParam = "style=" . ($_GET['style'] ?? 'normal');
         <nav>
             <ul>
                 <li><a href="./index.php?<?=$styleParam?>">Accueil</a></li>
+                <li><a href="./previsions.php?<?=$styleParam?>">Prévisions</a></li>
                 <li><a href="./tech.php?<?=$styleParam?>">Page développeur</a></li>
-                <li><a href="./regions.php?<?=$styleParam?>">Régions</a></li>
+                <li><a href="./regions.php?<?=$styleParam?>">Statistiques</a></li>
             </ul>
         </nav>
 
@@ -157,5 +158,3 @@ $styleParam = "style=" . ($_GET['style'] ?? 'normal');
 
 
     </header>
-</body>
-</html>

@@ -1,5 +1,5 @@
 <?php
-    $title="Accueil - Prévisions Météo ET Climat";
+    $title="Accueil - Météo&Climat";
     require "./include/header.inc.php";
     // Vérifier si le paramètre 'style' existe dans l'URL, sinon définir 'style' à 'default'
 $styleParam = isset($_GET['style']) ? 'style=' . $_GET['style'] : 'style=default';
@@ -11,7 +11,7 @@ $data = construire_regions_departements_villes("v_region_2024.csv", "v_departeme
 $selected_region = $_GET['region'] ?? null;
 $styleParam = isset($_GET['style']) ? 'style=' . $_GET['style'] : 'style=default';
 
-// Associer chaque région à ses coordonnées (à ajuster avec image-map.net)
+// Associer chaque région à ses coordonnées (avec image-map.net)
 $region_coords = [
     "Île-de-France" => "340,180,420,260",
     "Hauts-de-France" => "340,40,420,180",
@@ -32,119 +32,34 @@ $region_coords = [
 <main>
 
     <section>
-        <h1>Bienvenue sur Prévisions Météo ET Climat !</h1>
-        <p>Découvrez en un coup d'œil la météo qu’il fait chez vous et partout ailleurs !</p>
+        <h1>Bienvenue sur Météo&Climat !</h1>
+
+         <!-- From Uiverse.io by zanina-yassine --> 
+<div class="container">
+  <div class="cloud front">
+    <span class="left-front"></span>
+    <span class="right-front"></span>
+  </div>
+  <span class="sun sunshine"></span>
+  <span class="sun"></span>
+  <div class="cloud back">
+    <span class="left-back"></span>
+    <span class="right-back"></span>
+  </div>
+</div>
+
+        <p>Découvrez en un coup d'œil la météo qu’il fait chez vous et partout en France !</p>
         <p>☀️ Soleil, 🌧️ pluie, ⛈️ orages… Soyez toujours prêt grâce à nos mises à jour fiables et détaillées.</p>
-        <p>📍Entrez votre ville et obtenez immédiatement les prévisions pour votre localisation.
-        </p>
-        <p>
-        <strong> restez informé, restez préparé !</strong></p>
-
-
-            <div class="section-banner">
-          <div id="star-1">
-            <div class="curved-corner-star">
-              <div id="curved-corner-bottomright"></div>
-              <div id="curved-corner-bottomleft"></div>
-            </div>
-            <div class="curved-corner-star">
-              <div id="curved-corner-topright"></div>
-              <div id="curved-corner-topleft"></div>
-            </div>
-          </div>
-
-          <div id="star-2">
-            <div class="curved-corner-star">
-              <div id="curved-corner-bottomright"></div>
-              <div id="curved-corner-bottomleft"></div>
-            </div>
-            <div class="curved-corner-star">
-              <div id="curved-corner-topright"></div>
-              <div id="curved-corner-topleft"></div>
-            </div>
-          </div>
-
-          <div id="star-3">
-            <div class="curved-corner-star">
-              <div id="curved-corner-bottomright"></div>
-              <div id="curved-corner-bottomleft"></div>
-            </div>
-            <div class="curved-corner-star">
-              <div id="curved-corner-topright"></div>
-              <div id="curved-corner-topleft"></div>
-            </div>
-          </div>
-
-          <div id="star-4">
-            <div class="curved-corner-star">
-              <div id="curved-corner-bottomright"></div>
-              <div id="curved-corner-bottomleft"></div>
-            </div>
-            <div class="curved-corner-star">
-              <div id="curved-corner-topright"></div>
-              <div id="curved-corner-topleft"></div>
-            </div>
-          </div>
-
-          <div id="star-5">
-            <div class="curved-corner-star">
-              <div id="curved-corner-bottomright"></div>
-              <div id="curved-corner-bottomleft"></div>
-            </div>
-            <div class="curved-corner-star">
-              <div id="curved-corner-topright"></div>
-              <div id="curved-corner-topleft"></div>
-            </div>
-          </div>
-
-          <div id="star-6">
-            <div class="curved-corner-star">
-              <div id="curved-corner-bottomright"></div>
-              <div id="curved-corner-bottomleft"></div>
-            </div>
-            <div class="curved-corner-star">
-              <div id="curved-corner-topright"></div>
-              <div id="curved-corner-topleft"></div>
-            </div>
-          </div>
-
-          <div id="star-7">
-            <div class="curved-corner-star">
-              <div id="curved-corner-bottomright"></div>
-              <div id="curved-corner-bottomleft"></div>
-            </div>
-            <div class="curved-corner-star">
-              <div id="curved-corner-topright"></div>
-              <div id="curved-corner-topleft"></div>
-            </div>
-          </div>
-        </div>
-
-        </section>
-
-        <section>
-
-    <h1>Test des données</h1>
-    <p>Sélectionnez une région sur la carte :</p>
-
-    <!-- Conteneur centré -->
-    <figure class="map-container">
-    <img src="./images/Carte_France.png" alt="Carte de France" usemap="#image-map">
-    <figcaption>Carte de la France avec une image cliquable</figcaption>
-    </figure>
-
-    <map name="image-map">
-        <?php foreach ($data as $region => $deps): ?>
-            <?php
-            $coords = $region_coords[$region] ?? "0,0,0,0"; // Coordonnées par défaut
-            ?>
-            <area target="" alt="<?php echo htmlspecialchars($region); ?>" 
-                  title="<?php echo htmlspecialchars($region); ?>" 
-                  href="./regions.php?region=<?php echo urlencode($region); ?>&<?php echo $styleParam; ?>" 
-                  coords="<?php echo $coords; ?>" shape="rect">
-        <?php endforeach; ?>
-    </map>
+        <p>📍Entrez votre ville et obtenez immédiatement les prévisions pour votre localisation.</p>
+        <p><strong> restez informé, restez préparé !</strong></p>
 </section>
+
+<section class="links-section">
+    <a href="./previsions.php">La Météo</a>
+    <a href="./tech.php">Consultez la page développeur</a>
+    <a href="./statistiques.php">Statistiques et historiques</a>
+</section>
+
     <!-- Bouton retour en haut -->
   <a href="#" class="back-to-top">↑</a>
 </main>

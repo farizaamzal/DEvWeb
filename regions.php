@@ -21,13 +21,16 @@ if (!$selected_region || !isset($data[$selected_region])) {
 
 // Récupérer le département sélectionné (s'il y en a un)
 $selected_departement = $_GET['departement'] ?? null;
+
+$tab = organizeData('v_region_2024.csv', 'v_departement_2024.csv', 'cities.csv');
+$regions = $tab['regions'];
 ?>
 
 <main>
     <h1>Sélection du département et de la ville</h1>
     <section>
         <h2>Région sélectionnée : <?php echo htmlspecialchars($selected_region); ?></h2>
-        <p><a href="index.php?<?php echo $styleParam; ?>">Retour à la carte</a></p>
+        <p><a href="previsions.php?<?php echo $styleParam; ?>">Retour à la carte</a></p>
 
         <!-- Sélection du département -->
         <h3>Choisissez un département :</h3>

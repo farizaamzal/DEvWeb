@@ -306,7 +306,7 @@ function getWeatherForecast($lat, $lon, $apiKey) {
     $url = "https://api.openweathermap.org/data/2.5/forecast?lat=$lat&lon=$lon&appid=$apiKey&units=metric&lang=fr";
     
     // Récupération des données via HTTP
-    $response = @file_get_contents($url);
+    $response = file_get_contents($url);
 
     if ($response !== false) {
         // Décodage de la réponse JSON en tableau PHP
@@ -334,5 +334,98 @@ function getWeatherForecast($lat, $lon, $apiKey) {
     return ["Erreur" => "Impossible de récupérer les prévisions météo"];
 }
 
+
+
+/**
+ * Charge un fichier CSV et retourne son contenu sous forme de tableau associatif.
+ *
+ * Cette fonction lit un fichier CSV, utilise la première ligne comme en-têtes,
+ * et associe chaque ligne suivante à ces en-têtes pour créer un tableau associatif.
+ *
+ * @param string $file Chemin vers le fichier CSV à charger.
+ * @return array Tableau associatif contenant les données du CSV, où chaque élément
+ *               est un tableau associatif avec les en-têtes comme clés.
+ */
+function loadCSV($file) {
+    $data = [];
+    if (($handle = fopen($file, 'r')) !== false) {
+        $headers = fgetcsv($handle); // Récupérer les en-têtes
+        while (($row = fgetcsv($handle, 1000, ',')) !== false) {
+            $data[] = array_combine($headers, $row);
+        }
+        fclose($handle);
+    }
+    return $data;
+}
+
+/**
+ * Charge et organise les données des régions, départements et villes à partir de trois fichiers CSV.
+ *
+ * Cette fonction lit les fichiers CSV pour les régions, départements et villes,
+ * et organise les données pour les listes déroulantes d'un formulaire.
+ * Les données sont triées et dédoublonnées pour un affichage cohérent.
+ *
+ * @param string $regionsFile Chemin vers le fichier CSV des régions.
+ * @param string $departementsFile Chemin vers le fichier CSV des départements.
+ * @param string $villesFile Chemin vers le fichier CSV des villes.
+ * @return array Tableau contenant trois sous-tableaux :
+ *               - 'regions' : Liste des régions avec leur code et nom.
+ *               - 'departements' : Liste des départements avec leur code, nom et région associée.
+ *               - 'villes' : Liste des villes avec leurs informations (région, département, latitude, longitude).
+ */
+function organizeData($regionsFile, $departementsFile, $villesFile) {
+    // Charger les données des trois fichiers
+    $regionsData = loadCSV($regionsFile);
+    $departementsData = loadCSV($departementsFile);
+    $villesData = loadCSV($villesFile);
+
+    $regions = [];
+    $departements = [];
+    $villes = [];
+
+    // Organiser les régions
+    foreach ($regionsData as $row) {
+        $regions[$row['REG']] = [
+            'code' => $row['REG'], // Code de la région
+            'name' => $row['LIBELLE'] // Nom de la région
+        ];
+    }
+
+   // Organiser les départements
+foreach ($departementsData as $row) {
+    $departements[$row['DEP']] = [
+        'code' => $row['DEP'], // Code du département
+        'name' => $row['LIBELLE'], // Nom du département
+        'region_code' => $row['REG'] // Code de la région associée
+    ];
+}
+
+    // Organiser les villes
+    foreach ($villesData as $row) {
+        $villeLabel = $row['label'];
+        $villes[$villeLabel] = [
+            'region_name' => $row['region_name'],
+            'departement_number' => $row['department_number'],
+            'latitude' => $row['latitude'],
+            'longitude' => $row['longitude']
+        ];
+    }
+
+    // Trier les régions par nom
+    uasort($regions, function ($a, $b) {
+        return strcmp($a['name'], $b['name']);
+    });
+
+    // Trier les départements par nom
+    uasort($departements, function ($a, $b) {
+        return strcmp($a['name'], $b['name']);
+    });
+
+    return [
+        'regions' => $regions,
+        'departements' => $departements,
+        'villes' => $villes
+    ];
+}
 
 ?>

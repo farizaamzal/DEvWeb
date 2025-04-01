@@ -11,6 +11,7 @@ body {
 background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='199' viewBox='0 0 100 199'%3E%3Cg fill='%23000000' fill-opacity='0.44'%3E%3Cpath d='M0 199V0h1v1.99L100 199h-1.12L1 4.22V199H0zM100 2h-.12l-1-2H100v2z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
     text-align: center;
     padding: 20px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 h1 {
@@ -245,117 +246,225 @@ section:hover {
       15px 2px 25px #000 inset, -24px -2px 34px #c3f4ff99 inset,
       250px 0px 44px #00000066 inset, 150px 0px 38px #000000aa inset;
   }
-  @keyframes earthRotate {
-    0% {
-      background-position: 0 0;
-    }
-    100% {
-      background-position: 400px 0;
-    }
+ /* Section globale */
+/* From Uiverse.io by zanina-yassine */ 
+.container {
+  width: 250px;
+  height: 250px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cloud {
+  width: 250px;
+}
+
+.front {
+  padding-top: 45px;
+  margin-left: 25px;
+  display: inline;
+  position: absolute;
+  z-index: 11;
+  animation: clouds 8s infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.back {
+  margin-top: -30px;
+  margin-left: 150px;
+  z-index: 12;
+  animation: clouds 12s infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.right-front {
+  width: 45px;
+  height: 45px;
+  border-radius: 50% 50% 50% 0%;
+  background-color: #4c9beb;
+  display: inline-block;
+  margin-left: -25px;
+  z-index: 5;
+}
+
+.left-front {
+  width: 65px;
+  height: 65px;
+  border-radius: 50% 50% 0% 50%;
+  background-color: #4c9beb;
+  display: inline-block;
+  z-index: 5;
+}
+
+.right-back {
+  width: 50px;
+  height: 50px;
+  border-radius: 50% 50% 50% 0%;
+  background-color: #4c9beb;
+  display: inline-block;
+  margin-left: -20px;
+  z-index: 5;
+}
+
+.left-back {
+  width: 30px;
+  height: 30px;
+  border-radius: 50% 50% 0% 50%;
+  background-color: #4c9beb;
+  display: inline-block;
+  z-index: 5;
+}
+
+.sun {
+  width: 120px;
+  height: 120px;
+  background: -webkit-linear-gradient(to right, #fcbb04, #fffc00);
+  background: linear-gradient(to right, #fcbb04, #fffc00);
+  border-radius: 60px;
+  display: inline;
+  position: absolute;
+}
+
+.sunshine {
+  animation: sunshines 2s infinite;
+}
+
+@keyframes sunshines {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
   }
-  
-  .curved-corner-star {
-    display: flex;
-    position: relative;
+
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
   }
-  
-  #curved-corner-bottomleft,
-  #curved-corner-bottomright,
-  #curved-corner-topleft,
-  #curved-corner-topright {
-    width: 4px;
-    height: 5px;
-    overflow: hidden;
-    position: relative;
+}
+
+@keyframes clouds {
+  0% {
+    transform: translateX(15px);
   }
+
+  50% {
+    transform: translateX(0px);
+  }
+
+  100% {
+    transform: translateX(15px);
+  }
+}
+
   
-  #curved-corner-bottomleft:before,
-  #curved-corner-bottomright:before,
-  #curved-corner-topleft:before,
-  #curved-corner-topright:before {
-    content: "";
+  /* Formulaire */
+form {
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(98, 163, 243, 0.2);
+    border-radius: 10px;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+form label {
     display: block;
-    width: 200%;
-    height: 200%;
-    position: absolute;
-    border-radius: 50%;
-  }
-  
-  #curved-corner-bottomleft:before {
-    bottom: 0;
-    left: 0;
-    box-shadow: -5px 5px 0 0 white;
-  }
-  
-  #curved-corner-bottomright:before {
-    bottom: 0;
-    right: 0;
-    box-shadow: 5px 5px 0 0 white;
-  }
-  
-  #curved-corner-topleft:before {
-    top: 0;
-    left: 0;
-    box-shadow: -5px -5px 0 0 white;
-  }
-  
-  #curved-corner-topright:before {
-    top: 0;
-    right: 0;
-    box-shadow: 5px -5px 0 0 white;
-  }
-  
-  @keyframes twinkling {
-    0%,
-    100% {
-      opacity: 0.1;
-    }
-    50% {
-      opacity: 1;
-    }
-  }
-  
-  #star-1 {
-    position: absolute;
-    left: -20px;
-    animation: twinkling 3s infinite;
-  }
-  
-  #star-2 {
-    position: absolute;
-    left: -40px;
-    top: 30px;
-    animation: twinkling 2s infinite;
-  }
-  #star-3 {
-    position: absolute;
-    left: 350px;
-    top: 90px;
-    animation: twinkling 4s infinite;
-  }
-  #star-4 {
-    position: absolute;
-    left: 200px;
-    top: 290px;
-    animation: twinkling 3s infinite;
-  }
-  #star-5 {
-    position: absolute;
-    left: 50px;
-    top: 270px;
-    animation: twinkling 1.5s infinite;
-  }
-  
-  #star-6 {
-    position: absolute;
-    left: 250px;
-    top: -50px;
-    animation: twinkling 4s infinite;
-  }
-  #star-7 {
-    position: absolute;
-    left: 290px;
-    top: 60px;
-    animation: twinkling 2s infinite;
-  }
-  
+    font-size: 16px;
+    margin: 10px 0 5px;
+    color: #47c5e8;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    background: rgb(242, 248, 250);
+    border: none;
+    border-radius: 5px;
+    color: #47c5e8;
+    font-size: 16px;
+    outline: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+form input[type="text"]::placeholder {
+    color: rgba(161, 211, 239, 0.7);
+}
+
+form input[type="submit"] {
+    padding: 10px 25px;
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    border-radius: 20px;
+    color: #47c5e8;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+form input[type="submit"]:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Section contenant les liens */
+.links-section {
+    display: flex; /* Utilisation de flexbox pour aligner les éléments */
+    flex-direction: column; /* Aligner les liens verticalement */
+    justify-content: center; /* Centrer les éléments verticalement dans la section */
+    align-items: center; /* Centrer les éléments horizontalement */
+    gap: 20px; /* Espacement entre les liens */
+    padding: 20px; /* Ajouter un peu d'espace autour des éléments */
+    background-color: #f4f4f4; /* Couleur de fond douce pour la section */
+    border-radius: 8px; /* Coins arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère pour un effet moderne */
+}
+
+/* Styles des liens */
+.links-section a {
+    text-decoration: none; /* Supprimer le soulignement par défaut */
+    color: #333; /* Couleur de texte foncée */
+    font-size: 18px; /* Taille de texte agréable */
+    font-weight: 600; /* Police en gras pour un meilleur contraste */
+    padding: 10px 20px; /* Ajouter un peu de padding pour les rendre plus cliquables */
+    border-radius: 5px; /* Coins arrondis pour les liens */
+    transition: background-color 0.3s, color 0.3s; /* Transition douce pour les effets au survol */
+}
+
+/* Effet de survol */
+.links-section a:hover {
+    background-color: #007BFF; /* Couleur de fond lors du survol */
+    color: #fff; /* Changer la couleur du texte en blanc au survol */
+}
+
+/* Style pour les listes de prévisions */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 15px 0;
+}
+
+ul li {
+    background: rgba(242, 248, 250, 0.7);
+    margin-bottom: 10px;
+    padding: 12px 15px;
+    border-radius: 5px;
+    border-left: 4px solid #47c5e8;
+    transition: transform 0.2s;
+}
+
+ul li:hover {
+    transform: translateX(5px);
+    background: rgba(242, 248, 250, 0.9);
+}
+
+/* Style pour les prévisions par jour */
+ul li strong {
+    color: #47c5e8;
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.1em;
+}
+

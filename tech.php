@@ -1,11 +1,11 @@
 <?php
-$title="Page Tech - Prévisions Météo ET Climat";
+$title="Page Tech - météo&Climat";
 require './include/header.inc.php';
 // Inclure le fichier contenant les fonctions
-require './include/functions.inc.php'; // Assurez-vous que functions.php contient toutes les fonctions créées précédemment
+require './include/functions.inc.php'; 
 
 // Récupérer la clé API de la NASA
-$apiKey = "WejnCDC0fIVzW3tEUw6p9E20Ct2FN6r5IZFuirda"; // Remplacez par votre clé API
+$apiKey = "WejnCDC0fIVzW3tEUw6p9E20Ct2FN6r5IZFuirda"; 
 
 // Récupérer les données de la NASA
 $nasaData = getNASAData($apiKey); 
