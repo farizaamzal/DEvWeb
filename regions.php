@@ -7,7 +7,7 @@ require "./include/functions.inc.php";
 
 // Définir $selected_region et $styleParam
 $selected_region = $_GET['region'] ?? null;
-$styleParam = isset($_GET['style']) ? 'style=' . $_GET['style'] : 'style=default';
+$styleParam = isset($_GET['style']) ? 'style=' . $_GET['style'] : (isset($_COOKIE['theme']) ? 'style=' . $_COOKIE['theme'] : 'style=normal');
 
 // Charger les données
 $data = construire_regions_departements_villes("v_region_2024.csv", "v_departement_2024.csv", "cities.csv");
@@ -34,10 +34,16 @@ $regions = $tab['regions'];
 
         <!-- Sélection du département -->
         <h3>Choisissez un département :</h3>
-        <ul>
-            <?php foreach ($data[$selected_region] as $dep_code => $dep_data): ?>
+        <ul class="list">
+            <?php
+            // Trier les départements par nom
+            $departements = $data[$selected_region];
+            uasort($departements, function($a, $b) {
+            return strcmp($a['nom'], $b['nom']);
+            });
+            foreach ($departements as $dep_code => $dep_data): ?>
                 <li>
-                    <a href="regions.php?region=<?php echo urlencode($selected_region); ?>&departement=<?php echo urlencode($dep_code); ?>&<?php echo $styleParam; ?>">
+                    <a href="regions.php?region=<?php echo urlencode($selected_region); ?>&amp;departement=<?php echo urlencode($dep_code); ?>&amp;<?php echo $styleParam; ?>">
                         <?php echo htmlspecialchars($dep_data['nom']) . " ($dep_code)"; ?>
                     </a>
                 </li>
@@ -47,10 +53,16 @@ $regions = $tab['regions'];
         <!-- Afficher les villes si un département est sélectionné -->
         <?php if ($selected_departement && isset($data[$selected_region][$selected_departement])): ?>
             <h3>Villes dans le département <?php echo htmlspecialchars($data[$selected_region][$selected_departement]['nom']) . " ($selected_departement)"; ?> :</h3>
-            <ul>
-                <?php foreach ($data[$selected_region][$selected_departement]['villes'] as $ville): ?>
+            <ul class="list">
+                <?php 
+                // Trier les villes par nom
+                $villes = $data[$selected_region][$selected_departement]['villes'];
+                usort($villes, function($a, $b) {
+                    return strcmp($a['nom'], $b['nom']);
+                });
+                foreach ($villes as $ville): ?>
                     <li>
-                        <a href="meteo.php?region=<?php echo urlencode($selected_region); ?>&departement=<?php echo urlencode($selected_departement); ?>&ville=<?php echo urlencode($ville['nom']); ?>&lat=<?php echo urlencode($ville['lat']); ?>&lon=<?php echo urlencode($ville['lon']); ?>&<?php echo $styleParam; ?>">
+                        <a href="meteo.php?region=<?php echo urlencode($selected_region); ?>&amp;departement=<?php echo urlencode($selected_departement); ?>&amp;ville=<?php echo urlencode($ville['nom']); ?>&amp;lat=<?php echo urlencode($ville['lat']); ?>&amp;lon=<?php echo urlencode($ville['lon']); ?>&amp;<?php echo $styleParam; ?>">
                             <?php echo htmlspecialchars($ville['nom']); ?>
                         </a>
                     </li>

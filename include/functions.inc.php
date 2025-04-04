@@ -45,7 +45,7 @@ function getGeoPluginData($ip) {
     // URL de l'API GeoPlugin avec l'IP
     $geoUrl = "http://www.geoplugin.net/xml.gp?ip=$ip";
     // Récupération et chargement du XML retourné par l'API
-    $geoXml = @simplexml_load_file($geoUrl);
+    $geoXml = simplexml_load_file($geoUrl);
 
     // Si les données XML sont valides
     if ($geoXml !== false) {
@@ -73,7 +73,7 @@ function getIPInfoData($ip) {
     // URL de l'API ipinfo.io pour récupérer les données géographiques
     $ipinfoUrl = "https://ipinfo.io/$ip/geo";
     // Envoi de la requête HTTP à l'API et récupération de la réponse JSON
-    $ipinfoResponse = @file_get_contents($ipinfoUrl);
+    $ipinfoResponse = file_get_contents($ipinfoUrl);
     
     // Si la réponse est valide
     if ($ipinfoResponse !== false) {
@@ -96,7 +96,7 @@ function getIPInfoData($ip) {
  * Fonction pour obtenir les données de WhatIsMyIP (XML).
  * Cette fonction interroge l'API WhatIsMyIP pour obtenir la localisation d'une IP donnée.
  *
- * @param string $apiKey La clé API pour interroger l'API WhatIsMyIP.
+ * @param string $apiK La clé API pour interroger l'API WhatIsMyIP.
  * @param string $ip L'IP à utiliser pour la recherche de la localisation.
  * @return array Tableau associatif contenant la ville et le pays de l'IP.
  */
@@ -169,7 +169,7 @@ function afficherCompteur() {
 function lire_csv($fichier) {
     $donnees = []; // Initialisation d'un tableau vide pour stocker les données
 
-    // Ouvrir le fichier CSV en mode lecture
+    // Ouvrir le fichier CSV en mode lecture (r pour le droit de lecture)
     if (($handle = fopen($fichier, "r")) !== FALSE) {
         $entetes = fgetcsv($handle, 1000, ","); // Lire la première ligne (en-têtes de colonnes)
 
@@ -327,6 +327,7 @@ function getWeatherForecast($lat, $lon, $apiKey) {
                 ];
             }
         }
+        
         return $forecast;
     }
 
@@ -426,6 +427,34 @@ foreach ($departementsData as $row) {
         'departements' => $departements,
         'villes' => $villes
     ];
+}
+
+
+/**
+ * Enregistre une consultation de ville dans un fichier CSV
+ * 
+ * @param string $ville       Nom de la ville à enregistrer
+ * @param string $region      Nom de la région associée
+ * @param string $departement Numéro du département
+ * 
+ * @return void
+ */
+function sauvegarderConsultation($ville, $region, $departement) {
+    $fichier_csv = 'consultations.csv';
+    $ligne = [
+        date('Y-m-d H:i:s'), // Date actuelle
+        $ville,
+        $region,
+        $departement
+    ];
+    
+    // Créer le fichier avec en-tête si vide
+    if (!file_exists($fichier_csv)) {
+        file_put_contents($fichier_csv, "Date,Ville,Région,Département\n");
+    }
+    
+    // Ajouter la ligne au CSV
+    file_put_contents($fichier_csv, implode(',', $ligne)."\n", FILE_APPEND);
 }
 
 ?>

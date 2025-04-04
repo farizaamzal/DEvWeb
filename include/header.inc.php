@@ -1,10 +1,35 @@
 <?php
-// Vérifier les paramètres 'style' dans l'URL
-$style = isset($_GET['style']) && $_GET['style'] == 'alternatif' ? 'styleNight.css' : 'styles.css';
+// Définition du chemin du cookie 
+$cookie_path = '/';   // Permet d'utiliser le cookie sur tout le site sauf dans un sous-dossier spécifique
 
-// Conserver les paramètres dans l'URL
-$styleParam = "style=" . ($_GET['style'] ?? 'normal');
+// Vérifier si un style est passé en paramètre d'URL
+if (isset($_GET['style'])) {
+    if ($_GET['style'] === 'alternatif') { //si mode sombre
+        $style = 'styleNight.css';
+        setcookie('theme', 'alternatif', time() + 90*24*3600, $cookie_path); // Cookie pour 90 jours
+    } else {
+        $style = 'styles.css';
+        setcookie('theme', 'normal', time() + 90*24*3600, $cookie_path);
+    }
+} elseif (isset($_COOKIE['theme'])) {
+    if (!in_array($_COOKIE['theme'], ['normal', 'alternatif'])) { //si la valeur du cookie n'est pas correcte
+        setcookie('theme', '', time() - 3600, $cookie_path); // Supprime le cookie
+        $style = 'styles.css'; // Valeur par défaut
+    } else {
+        // Valeur correcte, on applique le style correspondant
+        $style = ($_COOKIE['theme'] === 'alternatif') ? 'styleNight.css' : 'styles.css';
+    }
+} else {
+    // Aucun paramètre, aucun cookie : style par défaut
+    $style = 'styles.css';
+}
+
+// Vérifie si un paramètre 'style' est passé dans l'URL. Si oui, utilise cette valeur. 
+// Sinon, vérifie si un cookie 'theme' est défini, et utilise sa valeur. 
+// Si aucune des deux conditions n'est remplie, utilise 'style=normal' (mode jour par défaut).
+$styleParam = isset($_GET['style']) ? 'style=' . $_GET['style'] : (isset($_COOKIE['theme']) ? 'style=' . $_COOKIE['theme'] : 'style=normal');
 ?>
+
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -131,15 +156,15 @@ $styleParam = "style=" . ($_GET['style'] ?? 'normal');
 <body>
     <header>
         <!-- Logo -->
-        <a href="index.php"><img src="./images/logo1.png" alt="meteo" style="width: 100px; height: auto;" ></a>
+        <a href="index.php"><img src="./images/logo1.png" alt="meteo" style="width: 100px; height: auto;" /></a>
 
         <!-- Navigation -->
-        <nav>
+        <nav id="navIndex">
             <ul>
                 <li><a href="./index.php?<?=$styleParam?>">Accueil</a></li>
                 <li><a href="./previsions.php?<?=$styleParam?>">Prévisions</a></li>
                 <li><a href="./tech.php?<?=$styleParam?>">Page développeur</a></li>
-                <li><a href="./regions.php?<?=$styleParam?>">Statistiques</a></li>
+                <li><a href="./statistiques.php?<?=$styleParam?>">Statistiques</a></li>
             </ul>
         </nav>
 
@@ -150,7 +175,7 @@ $styleParam = "style=" . ($_GET['style'] ?? 'normal');
         <!-- Input checkbox pour changer le thème -->
         <input type="checkbox" id="theme-toggle" 
                <?php echo isset($_GET['style']) && $_GET['style'] == 'alternatif' ? 'checked' : ''; ?>
-               onclick="window.location.href=this.checked ? 'index.php?style=alternatif' : 'index.php?style=normal'">
+               onclick="window.location.href=this.checked ? 'index.php?style=alternatif' : 'index.php?style=normal'"/>
         <span class="slider"></span>
     </label>
 </div>

@@ -1,6 +1,7 @@
 <?php
-$title="Page Tech - météo&Climat";
+$title="Page Tech - météo&amp;Climat";
 require './include/header.inc.php';
+$styleParam = isset($_GET['style']) ? 'style=' . $_GET['style'] : (isset($_COOKIE['theme']) ? 'style=' . $_COOKIE['theme'] : 'style=normal');
 // Inclure le fichier contenant les fonctions
 require './include/functions.inc.php'; 
 
@@ -28,7 +29,7 @@ $cityIpInfo = $ipInfoData['city'];
 $countryIpInfo = $ipInfoData['country'];
 
 // Récupérer les données de géolocalisation à partir de WhatIsMyIP
-$apik="f84419e2fa26e6152e63e6e6cca02cf7";
+$apik="681f9e7077df56d21774335cc866ca56";
 $whatIsMyIPData = getWhatIsMyIPData($apik, $userIP);
 $cityWhatIsMyIP = $whatIsMyIPData['city'];
 $countryWhatIsMyIP = $whatIsMyIPData['country'];
