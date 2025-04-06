@@ -24,6 +24,19 @@ $selected_departement = $_GET['departement'] ?? null;
 
 $tab = organizeData('v_region_2024.csv', 'v_departement_2024.csv', 'cities.csv');
 $regions = $tab['regions'];
+
+
+// Détermine dynamiquement une ancre HTML (#departement ou #ville)
+// pour revenir automatiquement à la bonne section après soumission du formulaire
+$ancre = '';
+if (!empty($selectedRegion) && empty($selectedDepartement)) {
+    // Si une région est sélectionnée mais pas de département → revenir à la section départements
+    $ancre = '#departement';
+} elseif (!empty($selectedDepartement) && empty($selectedVille)) {
+    // Si un département est sélectionné mais pas de ville → revenir à la section villes
+    $ancre = '#ville';
+}
+
 ?>
 
 <main>
@@ -33,7 +46,7 @@ $regions = $tab['regions'];
         <p><a href="previsions.php?<?php echo $styleParam; ?>">Retour à la carte</a></p>
 
         <!-- Sélection du département -->
-        <h3>Choisissez un département :</h3>
+        <h3 id="departement">Choisissez un département :</h3>
         <ul class="list">
             <?php
             // Trier les départements par nom
@@ -43,7 +56,7 @@ $regions = $tab['regions'];
             });
             foreach ($departements as $dep_code => $dep_data): ?>
                 <li>
-                    <a href="regions.php?region=<?php echo urlencode($selected_region); ?>&amp;departement=<?php echo urlencode($dep_code); ?>&amp;<?php echo $styleParam; ?>">
+                    <a href="regions.php?region=<?php echo urlencode($selected_region); ?>&amp;departement=<?php echo urlencode($dep_code); ?>&amp;<?php echo $styleParam; ?>#ville">
                         <?php echo htmlspecialchars($dep_data['nom']) . " ($dep_code)"; ?>
                     </a>
                 </li>
@@ -52,7 +65,7 @@ $regions = $tab['regions'];
 
         <!-- Afficher les villes si un département est sélectionné -->
         <?php if ($selected_departement && isset($data[$selected_region][$selected_departement])): ?>
-            <h3>Villes dans le département <?php echo htmlspecialchars($data[$selected_region][$selected_departement]['nom']) . " ($selected_departement)"; ?> :</h3>
+            <h3 id="ville">Villes dans le département <?php echo htmlspecialchars($data[$selected_region][$selected_departement]['nom']) . " ($selected_departement)"; ?> :</h3>
             <ul class="list">
                 <?php 
                 // Trier les villes par nom
@@ -62,6 +75,8 @@ $regions = $tab['regions'];
                 });
                 foreach ($villes as $ville): ?>
                     <li>
+                    <!--Lien vers la page météo avec tous les paramètres nécessaires (région, département, ville, coordonnées GPS, et style)-->
+
                         <a href="meteo.php?region=<?php echo urlencode($selected_region); ?>&amp;departement=<?php echo urlencode($selected_departement); ?>&amp;ville=<?php echo urlencode($ville['nom']); ?>&amp;lat=<?php echo urlencode($ville['lat']); ?>&amp;lon=<?php echo urlencode($ville['lon']); ?>&amp;<?php echo $styleParam; ?>">
                             <?php echo htmlspecialchars($ville['nom']); ?>
                         </a>

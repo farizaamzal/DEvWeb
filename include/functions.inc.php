@@ -263,20 +263,28 @@ function getWeatherData($lat, $lon, $apiKey) {
 
     if ($response !== false) {
         $data = json_decode($response, true);
+        
+        // On récupère le code de l'icône
+        $icon = $data['weather'][0]['icon'] ?? null;
+        
         return [
             'temperature' => $data['main']['temp'] ?? "Non disponible",
             'description' => $data['weather'][0]['description'] ?? "Non disponible",
             'humidity' => $data['main']['humidity'] ?? "Non disponible",
             'wind_speed' => $data['wind']['speed'] ?? "Non disponible",
+            'icon' => $icon, // Ajouter l'icône dans le tableau
         ];
     }
+    
     return [
         'temperature' => "Erreur",
         'description' => "Erreur lors de la récupération des données météo",
         'humidity' => "Erreur",
         'wind_speed' => "Erreur",
+        'icon' => null, // Si erreur, on retourne null pour l'icône
     ];
 }
+
 
 
 /**
@@ -319,11 +327,15 @@ function getWeatherForecast($lat, $lon, $apiKey) {
 
             // Si c'est la première prévision du jour, l'ajouter au tableau
             if (!isset($forecast[$date])) {
+                // On récupère le code de l'icône
+                $icon = $item['weather'][0]['icon'] ?? null;
+                
                 $forecast[$date] = [
                     'temperature' => round($item['main']['temp'], 1),  // Température en °C (arrondie)
                     'description' => $item['weather'][0]['description'], // Description du temps (ex: "ciel dégagé")
                     'humidity' => $item['main']['humidity'],  // Humidité en %
-                    'wind_speed' => $item['wind']['speed'] // Vitesse du vent en m/s
+                    'wind_speed' => $item['wind']['speed'], // Vitesse du vent en m/s
+                    'icon' => $icon, // Ajouter l'icône pour les prévisions
                 ];
             }
         }
@@ -375,59 +387,68 @@ function loadCSV($file) {
  *               - 'villes' : Liste des villes avec leurs informations (région, département, latitude, longitude).
  */
 function organizeData($regionsFile, $departementsFile, $villesFile) {
-    // Charger les données des trois fichiers
+    // Charger les données des trois fichiers CSV
     $regionsData = loadCSV($regionsFile);
     $departementsData = loadCSV($departementsFile);
     $villesData = loadCSV($villesFile);
 
+    // Initialisation des tableaux
     $regions = [];
     $departements = [];
     $villes = [];
 
-    // Organiser les régions
+    // Organiser les régions dans un tableau associatif avec leur code
     foreach ($regionsData as $row) {
         $regions[$row['REG']] = [
-            'code' => $row['REG'], // Code de la région
-            'name' => $row['LIBELLE'] // Nom de la région
+            'code' => $row['REG'],           // Code de la région (ex : "84")
+            'name' => $row['LIBELLE']        // Nom de la région (ex : "Île-de-France")
         ];
     }
 
-   // Organiser les départements
-foreach ($departementsData as $row) {
-    $departements[$row['DEP']] = [
-        'code' => $row['DEP'], // Code du département
-        'name' => $row['LIBELLE'], // Nom du département
-        'region_code' => $row['REG'] // Code de la région associée
-    ];
-}
+    // Organiser les départements dans un tableau associatif avec leur code
+    foreach ($departementsData as $row) {
+        $departements[$row['DEP']] = [
+            'code' => $row['DEP'],           // Code du département (ex : "75")
+            'name' => $row['LIBELLE'],       // Nom du département (ex : "Paris")
+            'region_code' => $row['REG']     // Code de la région associée
+        ];
+    }
 
-    // Organiser les villes
+    // Organiser les villes dans un tableau associatif avec leur nom (label)
     foreach ($villesData as $row) {
         $villeLabel = $row['label'];
-        $villes[$villeLabel] = [
-            'region_name' => $row['region_name'],
-            'departement_number' => $row['department_number'],
-            'latitude' => $row['latitude'],
-            'longitude' => $row['longitude']
-        ];
+        // Si la ville n'est pas déjà dans le tableau, on l'ajoute
+        if (!isset($villes[$villeLabel])) {
+            $villes[$villeLabel] = [
+                'region_name' => $row['region_name'], // Nom de la région
+                'departement_number' => $row['department_number'], // Code du département
+                'latitude' => $row['latitude'], // Latitude de la ville
+                'longitude' => $row['longitude'] // Longitude de la ville
+            ];
+        }
     }
 
-    // Trier les régions par nom
+    // Trier les régions par ordre alphabétique de leur nom
     uasort($regions, function ($a, $b) {
         return strcmp($a['name'], $b['name']);
     });
 
-    // Trier les départements par nom
+    // Trier les départements par ordre alphabétique de leur nom
     uasort($departements, function ($a, $b) {
         return strcmp($a['name'], $b['name']);
     });
 
+    // Trier les villes par ordre alphabétique de leur nom (clé du tableau)
+    ksort($villes);
+
+    // Retourner les trois tableaux triés
     return [
         'regions' => $regions,
         'departements' => $departements,
         'villes' => $villes
     ];
 }
+
 
 
 /**

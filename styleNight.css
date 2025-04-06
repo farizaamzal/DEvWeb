@@ -423,6 +423,7 @@ ul li {
   border-radius: 5px;
   border-left: 4px solid #47c5e8;
   transition: transform 0.2s;
+  color: black;
 }
 
 ul li:hover {
@@ -467,4 +468,4 @@ ul li strong {
     .compteur {
         text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
     }
-
+    

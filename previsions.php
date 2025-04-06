@@ -77,7 +77,36 @@ $selectedVille = isset($_GET['ville']) ? $_GET['ville'] : '';
     </section>
 
     <!-- Formulaire -->
-    <form action="<?php echo !empty($selectedVille) ? 'meteo.php' : htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="get">
+    <<?php
+    // Initialisation de la variable $ancre, qui sera utilisée pour déterminer l'ancre de l'URL.
+    // Cela permet de faire défiler la page automatiquement jusqu'à une certaine section après un choix utilisateur.
+
+    $ancre = '';  // Par défaut, l'ancre est vide.
+
+    // Vérification si une région est sélectionnée mais pas de département.
+    // Si cette condition est vraie, l'ancre est définie sur #departement, pour faire défiler l'utilisateur
+    // jusqu'à la section des départements, afin de lui permettre de sélectionner un département.
+    if (!empty($selectedRegion) && empty($selectedDepartement)) {
+        $ancre = '#departement';  // Ancre pour la section des départements.
+    
+    // Vérification si un département est sélectionné mais pas de ville.
+    // Si cette condition est vraie, l'ancre est définie sur #ville, pour faire défiler l'utilisateur
+    // jusqu'à la section des villes et lui permettre de sélectionner une ville.
+    } elseif (!empty($selectedDepartement) && empty($selectedVille)) {
+        $ancre = '#ville';  // Ancre pour la section des villes.
+    }
+
+    // Si aucune des conditions ci-dessus n'est remplie, la variable $ancre restera vide,
+    // ce qui signifie qu'il n'y a pas d'ancre spécifique et que la page ne fera pas défiler
+    // l'utilisateur à une section particulière.
+?>
+
+<!-- Si une ville est sélectionnée, le formulaire soumet les données vers 'meteo.php' pour afficher les prévisions. 
+     Si aucune ville n'est sélectionnée, le formulaire soumet les données à la même page (PHP_SELF), 
+     en ajoutant éventuellement une ancre pour rediriger l'utilisateur vers la section appropriée (département ou ville). -->
+
+<form action="<?php echo !empty($selectedVille) ? 'meteo.php' : htmlspecialchars($_SERVER['PHP_SELF'] . $ancre); ?>" method="get">
+
     <!-- Conserver le paramètre de style -->
     <input type="hidden" name="style" value="<?php echo isset($_GET['style']) ? htmlspecialchars($_GET['style']) : 'default'; ?>"/>
     

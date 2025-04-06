@@ -56,6 +56,12 @@ if (isset($_COOKIE['derniere_ville'])) {
             <li><strong>Description :</strong> <?php echo $weatherData['description']; ?></li>
             <li><strong>Humidité :</strong> <?php echo $weatherData['humidity']; ?> %</li>
             <li><strong>Vitesse du vent :</strong> <?php echo $weatherData['wind_speed']; ?> m/s</li>
+            <!-- Affichage de l'icône météo pour les conditions actuelles -->
+            <?php if (isset($weatherData['icon'])): ?>
+                <li><strong>Icône actuelle :</strong> 
+                    <img src="https://openweathermap.org/img/wn/<?php echo $weatherData['icon']; ?>@2x.png" alt="Icône actuelle"/>
+                </li>
+            <?php endif; ?>
         </ul>
         <h3>Prévisions météo pour les prochains jours :</h3>
             <ul class="list">
@@ -68,6 +74,12 @@ if (isset($_COOKIE['derniere_ville'])) {
                         <?php echo htmlspecialchars($info['description']); ?>, 
                         Humidité : <?php echo $info['humidity']; ?>%, 
                         Vent : <?php echo $info['wind_speed']; ?> m/s
+
+                        <!-- Affichage de l'icône météo pour les conditions actuelles -->
+                        <?php if (isset($info['icon'])): ?>
+                        <img src="https://openweathermap.org/img/wn/<?php echo $info['icon']; ?>@2x.png" alt="Icône météo"/>
+                        <?php endif; ?>
+
                     </li>
                     <?php endforeach; ?>
             </ul>
