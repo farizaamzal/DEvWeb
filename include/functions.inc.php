@@ -478,4 +478,111 @@ function sauvegarderConsultation($ville, $region, $departement) {
     file_put_contents($fichier_csv, implode(',', $ligne)."\n", FILE_APPEND);
 }
 
+/**
+ * Affiche une image aléatoire provenant d’un dossier donné.
+ *
+ * @param string $dossier Le chemin vers le dossier contenant les images (par défaut "photos/")
+ * @param array $extensions Liste des extensions autorisées (par défaut jpg, jpeg, png, gif, webp)
+ *
+ * @return void Affiche directement le code HTML avec <figure> et <figcaption>
+ */
+function afficherImageAleatoire($dossier = 'photos/', $extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp']) {
+    // Vérifie que le dossier existe
+    if (!is_dir($dossier)) {
+        echo "<p>Le dossier spécifié n'existe pas.</p>";
+        return;
+    }
+
+    // Récupère tous les fichiers du dossier, filtre pour ne garder que les images
+    $fichiers = array_filter(scandir($dossier), function($fichier) use ($dossier, $extensions) {
+        $cheminComplet = $dossier . $fichier;
+        $extension = strtolower(pathinfo($cheminComplet, PATHINFO_EXTENSION));
+
+        // On vérifie que c’est bien un fichier (pas un dossier) et que son extension est autorisée
+        return is_file($cheminComplet) && in_array($extension, $extensions);
+    });
+
+    // Vérifie qu'il y a au moins une image disponible
+    if (!empty($fichiers)) {
+        // Choisit un fichier aléatoire parmi les images filtrées
+        $fichierAleatoire = $fichiers[array_rand($fichiers)];
+        $cheminImage = $dossier . $fichierAleatoire;
+        $nomImage ='Image aléatoire ';
+
+        // Affiche l’image dans une balise <figure> avec une <figcaption> contenant le nom du fichier
+        echo '<aside>';
+        echo '  <figure>';
+        echo '      <img src="' . $cheminImage . '" alt="Image aléatoire" style="width: 250px; height: auto;">';
+        echo '      <figcaption>' . $nomImage . '</figcaption>';
+        echo '  </figure>';
+        echo '</aside>';
+    } else {
+        // Aucun fichier image trouvé
+        echo "<p>Aucune image trouvée dans le dossier '$dossier'.</p>";
+    }
+}
+
+/**
+ * Récupère l'adresse IP de l'utilisateur en tenant compte des proxys éventuels.
+ *
+ * Cette fonction tente de déterminer l'adresse IP réelle de l'utilisateur
+ * en inspectant les variables serveur HTTP les plus courantes utilisées pour le proxying.
+ *
+ * @return string Adresse IP publique de l'utilisateur.
+ */
+function getUserIP() {
+    // Si l'adresse IP est définie dans HTTP_CLIENT_IP (cas de certains proxys)
+    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+        return $_SERVER['HTTP_CLIENT_IP'];
+    }
+    // Sinon, on regarde dans HTTP_X_FORWARDED_FOR (souvent utilisé par les reverse proxy)
+    elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        // Il peut y avoir une liste d'IP, on prend la première (la plus proche de l'utilisateur)
+        return explode(',', $_SERVER['HTTP_X_FORWARDED_FOR'])[0];
+    }
+    // Sinon, on utilise REMOTE_ADDR (classique)
+    else {
+        return $_SERVER['REMOTE_ADDR'];
+    }
+}
+
+
+/**
+ * Récupère les informations de géolocalisation approximative à partir d'une adresse IP.
+ *
+ * Cette fonction utilise le service gratuit ip-api.com pour obtenir la localisation
+ * approximative (ville, région, latitude et longitude) de l'utilisateur à partir de son adresse IP.
+ *
+ * @param string $ip Adresse IP à localiser.
+ * @return array|null Tableau contenant :
+ *                    - 'ville' (string) : Nom de la ville détectée (ou 'Ville inconnue')
+ *                    - 'region' (string) : Nom de la région détectée (ou 'Région inconnue')
+ *                    - 'lat' (float|null) : Latitude si disponible
+ *                    - 'lon' (float|null) : Longitude si disponible
+ *                    Retourne null si l'appel API échoue ou si les données sont invalides.
+ */
+function getLocationFromIP($ip) {
+    // URL de l'API avec langue française
+    $url = "http://ip-api.com/json/{$ip}?lang=fr";
+
+    // Appel API : on utilise @ pour éviter les erreurs visibles si l'API est injoignable
+    $json = @file_get_contents($url);
+
+    // On décode la réponse JSON en tableau associatif
+    $data = json_decode($json, true);
+
+    // Si la réponse est valide et l'API a répondu avec succès
+    if ($data && $data['status'] === 'success') {
+        return [
+            'ville'   => $data['city']        ?? 'Ville inconnue',
+            'region'  => $data['regionName']  ?? 'Région inconnue',
+            'lat'     => $data['lat']         ?? null,
+            'lon'     => $data['lon']         ?? null
+        ];
+    }
+
+    // Si l'API a échoué ou retourné une erreur, on retourne null
+    return null;
+}
+
 ?>

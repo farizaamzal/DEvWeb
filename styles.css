@@ -484,3 +484,30 @@ ul li strong {
 .compteur {
     text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
 }
+
+
+.meteo-box {
+    background-color: #f0f8ff;
+    border: 1px solid #ccc;
+    padding: 1rem;
+    border-radius: 10px;
+    max-width: 100%;
+    margin: 1rem auto;
+    text-align: center;
+}
+
+.meteo-horizontal {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    list-style-type: none;
+    padding: 0;
+    margin: 1rem 0 0 0;
+    flex-wrap: wrap; /* Pour que ça passe à la ligne sur petits écrans */
+}
+
+.meteo-horizontal li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
