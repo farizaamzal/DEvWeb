@@ -550,7 +550,7 @@ function getUserIP() {
 /**
  * Récupère les informations de géolocalisation approximative à partir d'une adresse IP.
  *
- * Cette fonction utilise le service gratuit ip-api.com pour obtenir la localisation
+ * Cette fonction utilise le service gratuit ipinfo.io pour obtenir la localisation
  * approximative (ville, région, latitude et longitude) de l'utilisateur à partir de son adresse IP.
  *
  * @param string $ip Adresse IP à localiser.
@@ -562,27 +562,29 @@ function getUserIP() {
  *                    Retourne null si l'appel API échoue ou si les données sont invalides.
  */
 function getLocationFromIP($ip) {
-    // URL de l'API avec langue française
-    $url = "http://ip-api.com/json/{$ip}?lang=fr";
+    // Appel de l'API ipinfo.io
+    $url = "https://ipinfo.io/{$ip}/json";
+    $json = file_get_contents($url);
 
-    // Appel API : on utilise @ pour éviter les erreurs visibles si l'API est injoignable
-    $json = @file_get_contents($url);
-
-    // On décode la réponse JSON en tableau associatif
+    // Les coordonnées (latitude et longitude) sont retournées sous forme d'une chaîne "latitude,longitude".
+    // On les sépare en un tableau en utilisant la virgule comme délimiteur.
     $data = json_decode($json, true);
 
-    // Si la réponse est valide et l'API a répondu avec succès
-    if ($data && $data['status'] === 'success') {
+    // Si l'API a retourné des données valides, on les utilise.
+    if ($data) {
+        // lat/lon sont dans le champ "loc" sous forme "48.95,2.25"
+        $coords = explode(',', $data['loc'] ?? '');
+
         return [
             'ville'   => $data['city']        ?? 'Ville inconnue',
-            'region'  => $data['regionName']  ?? 'Région inconnue',
-            'lat'     => $data['lat']         ?? null,
-            'lon'     => $data['lon']         ?? null
+            'region'  => $data['region']      ?? 'Région inconnue',
+            'lat'     => $coords[0]           ?? null,
+            'lon'     => $coords[1]           ?? null
         ];
     }
 
-    // Si l'API a échoué ou retourné une erreur, on retourne null
     return null;
 }
+
 
 ?>
