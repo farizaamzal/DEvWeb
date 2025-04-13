@@ -36,6 +36,7 @@ $countryWhatIsMyIP = $whatIsMyIPData['country'];
 
 ?>
 <main>
+<section>
 <h1>Bienvenue sur la page Développeur</h1>
 
 <!-- 🔹 NASA APOD -->
@@ -71,6 +72,7 @@ $countryWhatIsMyIP = $whatIsMyIPData['country'];
 <h2>📍 Localisation whatismyip.com (IP : <?php echo $userIP; ?>)</h2>
 <p>Ville : <?php echo $cityWhatIsMyIP; ?></p>
 <p>Pays : <?php echo $countryWhatIsMyIP; ?></p>
+</section>
 <!-- Bouton retour en haut -->
 <a href="#" class="back-to-top">↑</a>
 </main>

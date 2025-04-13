@@ -35,6 +35,21 @@ setcookie('derniere_ville', json_encode($cookie_data), time() + 90*24*3600, '/')
 $weatherApiKey = "f8e571c228bd19a1c00cedc4a50ea893";
 $weatherData = getWeatherData($lat, $lon, $weatherApiKey);
 $weatherForecast = getWeatherForecast($lat, $lon, $weatherApiKey);
+
+
+// On crée les données météo à stocker dans le cookie
+if ($weatherData && $weatherData['temperature'] !== "Erreur") {
+    $meteo_data = [
+        'temperature' => $weatherData['temperature'],
+        'description' => $weatherData['description'],
+        'humidity' => $weatherData['humidity'],
+        'wind_speed' => $weatherData['wind_speed'],
+        'icon' => $weatherData['icon'],
+    ];
+
+    // Sauvegarder ces données dans un cookie
+    setcookie('derniere_meteo', json_encode($meteo_data), time() + 90*24*3600, '/'); // Expire dans 90 jours
+}
 ?>
 
 <main>

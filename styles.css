@@ -1,513 +1,627 @@
-/* Réinitialisation des marges et bordures */
+/* Mode Jour - Thème Ciel Clair */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-/* Styles généraux */
-body {
-    background-color: #f0fbff;
-background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='199' viewBox='0 0 100 199'%3E%3Cg fill='%23000000' fill-opacity='0.44'%3E%3Cpath d='M0 199V0h1v1.99L100 199h-1.12L1 4.22V199H0zM100 2h-.12l-1-2H100v2z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+  }
+  
+  /* Fond ciel bleu avec nuages légers */
+  body {
+    background-color: #f0f9ff;
+    background-image: url("https://images.unsplash.com/photo-1498496294664-d9372eb521f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
     text-align: center;
-    padding: 20px;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
-h1 {
-    font-size: 32px;
-    margin-bottom: 20px;
-    color: #2d7db4;
-}
-
-p {
+    background-attachment: fixed;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: #2d3748;
+  }
+  
+  /* Titres */
+  h1 {
+    font-size: 2.5rem; /* Conserve la même taille */
+    margin: 0 0 1.5rem 0;
+    color: #3182CE; /* Bleu ciel au lieu de jaune */
+    text-shadow: 
+        0 2px 4px rgba(255, 255, 255, 0.7), /* Ombre blanche pour contraste */
+        0 0 8px rgba(49, 130, 206, 0.2); /* Reflet bleu léger */
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    position: relative;
+    padding-bottom: 15px;
+    line-height: 1.2;
+  }
+ 
+  p {
     font-size: 18px;
     line-height: 1.6;
     margin: 15px 0;
-}
+  }
+  
+  /* Sections */
+  section {
+    background: rgba(255, 255, 255, 0.92); /* Blanc légèrement transparent */
+    backdrop-filter: blur(8px); /* Effet verre léger */
+    color: #2D3748; /* Gris-bleu foncé pour le texte */
+    padding: 2rem;
+    border-radius: 16px;
+    border: 1px solid rgba(66, 153, 225, 0.3); /* Bordure bleue subtile */
+    box-shadow: 
+      0 4px 20px rgba(0, 0, 0, 0.1),
+      0 0 0 1px rgba(255, 255, 255, 0.8) inset; /* Reflet intérieur */
+    max-width: 800px;
+    margin: 2rem auto;
+    transition: all 0.3s ease;
+  }
+  
+  /* Effet au survol */
+  section:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+      0 6px 24px rgba(0, 0, 0, 0.15),
+      0 0 0 1px rgba(255, 255, 255, 0.9) inset;
+    border-color: rgba(246, 173, 85, 0.5); /* Bordure orangée au survol */
+  }
 
-/* Effet hover sur les boutons jour/nuit */
-.light-mode:hover {
-    background: lightgray;
-}
+  /* From Uiverse.io by zanina-yassine */ 
+.container {
+    width: 250px;
+    height: 250px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+    
+    .cloud {
+    width: 250px;
+    }
+    
+    .front {
+    padding-top: 45px;
+    margin-left: 25px;
+    display: inline;
+    position: absolute;
+    z-index: 11;
+    animation: clouds 8s infinite;
+    animation-timing-function: ease-in-out;
+    }
+    
+    .back {
+    margin-top: -30px;
+    margin-left: 150px;
+    z-index: 12;
+    animation: clouds 12s infinite;
+    animation-timing-function: ease-in-out;
+    }
+    
+    .right-front {
+    width: 45px;
+    height: 45px;
+    border-radius: 50% 50% 50% 0%;
+    background-color: #4c9beb;
+    display: inline-block;
+    margin-left: -25px;
+    z-index: 5;
+    }
+    
+    .left-front {
+    width: 65px;
+    height: 65px;
+    border-radius: 50% 50% 0% 50%;
+    background-color: #4c9beb;
+    display: inline-block;
+    z-index: 5;
+    }
+    
+    .right-back {
+    width: 50px;
+    height: 50px;
+    border-radius: 50% 50% 50% 0%;
+    background-color: #4c9beb;
+    display: inline-block;
+    margin-left: -20px;
+    z-index: 5;
+    }
+    
+    .left-back {
+    width: 30px;
+    height: 30px;
+    border-radius: 50% 50% 0% 50%;
+    background-color: #4c9beb;
+    display: inline-block;
+    z-index: 5;
+    }
+    
+    .sun {
+    width: 120px;
+    height: 120px;
+    background: -webkit-linear-gradient(to right, #fcbb04, #fffc00);
+    background: linear-gradient(to right, #fcbb04, #fffc00);
+    border-radius: 60px;
+    display: inline;
+    position: absolute;
+    }
+    
+    .sunshine {
+    animation: sunshines 2s infinite;
+    }
+    
+    @keyframes sunshines {
+    0% {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+    
+    100% {
+      transform: scale(1.4);
+      opacity: 0;
+    }
+    }
+    
+    @keyframes clouds {
+    0% {
+      transform: translateX(15px);
+    }
+    
+    50% {
+      transform: translateX(0px);
+    }
+    
+    100% {
+      transform: translateX(15px);
+    }
+    }
 
-footer {
+    form {
+        margin: 30px auto;
+        padding: 25px;
+        background: rgba(255, 255, 255, 0.95); /* Fond blanc légèrement transparent */
+        backdrop-filter: blur(4px); /* Effet verre subtil */
+        border-radius: 12px;
+        width: 85%;
+        max-width: 500px;
+        border: 1px solid rgba(102, 179, 255, 0.4); /* Bordure bleu ciel */
+        box-shadow: 
+          0 8px 24px rgba(0, 0, 0, 0.1),
+          0 0 16px rgba(102, 179, 255, 0.1); /* Reflet bleu */
+      }
+      
+      form label {
+        display: block;
+        font-size: 1.1rem;
+        margin: 15px 0 8px;
+        color: #3182CE; /* Bleu ciel au lieu de jaune */
+        font-weight: 500;
+        text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+      }
+      
+      form input[type="text"] {
+        width: 100%;
+        padding: 12px 15px;
+        margin-bottom: 18px;
+        background: rgba(255, 255, 255, 0.8); /* Fond presque blanc */
+        border: 1px solid #BEE3F8; /* Bordure bleue très claire */
+        border-radius: 8px;
+        color: #2D3748; /* Texte foncé */
+        font-size: 1rem;
+        outline: none;
+        transition: all 0.3s ease;
+        box-shadow: 
+          0 2px 4px rgba(0, 0, 0, 0.05),
+          inset 0 1px 2px rgba(0, 0, 0, 0.05);
+      }
+      
+      form input[type="text"]:focus {
+        border-color: #F6AD55; /* Orange soleil au focus */
+        box-shadow: 
+          0 0 0 2px rgba(246, 173, 85, 0.2),
+          inset 0 1px 2px rgba(0, 0, 0, 0.1);
+      }
+      
+      form input[type="text"]::placeholder {
+        color: rgba(66, 153, 225, 0.5); /* Placeholder bleu clair */
+      }
+      
+      form input[type="submit"] {
+        padding: 12px 30px;
+        background: #4299E1; /* Bleu ciel solide */
+        border: none;
+        border-radius: 25px;
+        color: white;
+        cursor: pointer;
+        font-size: 1.1rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+        box-shadow: 
+          0 2px 8px rgba(66, 153, 225, 0.3),
+          inset 0 1px 2px rgba(255, 255, 255, 0.3);
+      }
+      
+      form input[type="submit"]:hover {
+        background: #3182CE; /* Bleu légèrement plus foncé */
+        transform: translateY(-2px);
+        box-shadow: 
+          0 4px 12px rgba(66, 153, 225, 0.4),
+          inset 0 1px 2px rgba(255, 255, 255, 0.4);
+      }
+      
+      form input[type="submit"]:active {
+        transform: translateY(1px);
+        background: #2B6CB0;
+      }
+
+
+      .links-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        padding: 25px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.9); /* Fond blanc semi-transparent */
+        backdrop-filter: blur(6px); /* Effet verre léger */
+        border: 1px solid rgba(102, 179, 255, 0.4); /* Bordure bleu ciel */
+        box-shadow: 
+          0 8px 24px rgba(0, 0, 0, 0.1),
+          0 0 16px rgba(102, 179, 255, 0.1); /* Reflet bleu */
+        max-width: 600px;
+        margin: 2rem auto;
+        color: #2D3748; /* Texte gris-bleu foncé */
+      }
+      
+      /* Styles des liens */
+      .links-section a {
+        text-decoration: none;
+        color: #3182CE; /* Bleu ciel */
+        font-size: 1.1rem;
+        font-weight: 600;
+        padding: 12px 30px;
+        border-radius: 8px;
+        width: 100%;
+        text-align: center;
+        transition: all 0.3s ease;
+        background: rgba(235, 248, 255, 0.7); /* Fond bleu très clair */
+        border: 1px solid rgba(102, 179, 255, 0.5); /* Bordure bleue */
+        box-shadow: 
+          0 2px 6px rgba(0, 0, 0, 0.05),
+          inset 0 1px 2px rgba(255, 255, 255, 0.8);
+      }
+      
+      /* Effet de survol */
+      .links-section a:hover {
+        background: rgba(246, 173, 85, 0.15); /* Fond orange très léger */
+        color: #DD6B20; /* Orange foncé */
+        border-color: #F6AD55; /* Bordure orange */
+        transform: translateY(-3px);
+        box-shadow: 
+          0 5px 15px rgba(246, 173, 85, 0.2),
+          inset 0 1px 2px rgba(255, 255, 255, 0.9);
+      }
+      
+      /* Effet actif */
+      .links-section a:active {
+        transform: translateY(1px);
+        background: rgba(246, 173, 85, 0.25);
+      }
+
+
+      /* Liste mode jour - Thème Ciel Clair */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 1.5rem 0;
+    display: grid;
+    gap: 0.8rem;
+  }
+  
+  /* Élément de navigation principal */
+  #navIndex li {
+    background: rgba(66, 153, 225, 0.4) !important; /* Bleu ciel transparent */
+    border-left: 4px solid #F6AD55; /* Bordure orange soleil */
+  }
+  
+  /* Éléments de liste standard */
+  ul li {
+    background: rgba(255, 255, 255, 0.85); /* Fond blanc semi-transparent */
+    backdrop-filter: blur(4px);
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    border-left: 4px solid #4299E1; /* Bordure bleue */
+    transition: all 0.3s ease-out;
+    box-shadow: 
+      0 3px 10px rgba(0, 0, 0, 0.1),
+      inset 0 1px 2px rgba(255, 255, 255, 0.9);
+    color: #2D3748; /* Texte foncé */
+  }
+  
+  /* Effet au survol */
+  ul li:hover {
+    transform: translateX(8px);
+    background: rgba(255, 255, 255, 0.95);
+    border-left-color: #F6AD55; /* Bordure orange au survol */
+    box-shadow: 
+      0 5px 15px rgba(0, 0, 0, 0.15),
+      inset 0 1px 3px rgba(255, 255, 255, 0.8);
+  }
+  
+  /* Titres des éléments */
+  ul li strong {
+    color: #3182CE; /* Bleu ciel */
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+  }
+
+
+  /* Histogramme - Thème Ciel Clair */
+.histogramme {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.9); /* Fond blanc semi-transparent */
+    backdrop-filter: blur(4px); /* Effet verre léger */
+    border-radius: 12px;
+    border: 1px solid rgba(102, 179, 255, 0.4); /* Bordure bleu ciel */
+    box-shadow: 
+      0 8px 24px rgba(0, 0, 0, 0.1),
+      0 0 16px rgba(102, 179, 255, 0.1); /* Reflet bleu */
+  }
+  
+  .barre-container {
+    margin: 1.25rem 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .ville {
+    width: 180px;
+    font-weight: 600;
+    color: #3182CE; /* Bleu ciel au lieu de jaune */
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8); /* Ombre blanche */
+    font-size: 1.05rem;
+  }
+  
+  .barre {
+    background: linear-gradient(90deg, 
+      #63B3ED,  /* Bleu clair */
+      #4299E1); /* Bleu plus soutenu */
+    height: 32px;
+    border-radius: 6px;
+    transition: 
+      width 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      background 0.3s ease;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    color: white;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 
+      inset 2px 0 12px rgba(255, 255, 255, 0.4),
+      0 2px 8px rgba(66, 153, 225, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .compteur {
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+  }
+  
+  
+  /* Footer */
+  footer {
     margin-top: 40px;
     font-size: 18px;
     text-align: center;
     padding: 20px;
-    background-color: rgb(112, 182, 239); /* Couleur du fond identique à celle du header */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
     color: white;
+    border-top: 1px solid #F1C40F;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05); /* Ombre légère */
-}
-
-footer a {
+  }
+  
+  footer a {
     color: white; /* Lien en blanc */
     text-decoration: none; /* Enlève le souligné */
     font-weight: bold;
     margin: 0 10px; /* Espacement entre les liens */
     transition: color 0.3s;
-}
-
-footer a:hover {
+  }
+  
+  footer a:hover {
     color: #FFD700; /* Changement de couleur au survol */
-}
-
-footer div {
+  }
+  
+  footer div {
     margin: 5px 0; /* Espacement entre les éléments */
-}
-
-footer img {
+  }
+  
+  footer img {
     margin: 10px 0; /* Espacement autour du logo */
-}
-
-footer .footer-link {
+  }
+  
+  footer .footer-link {
     color: #f1f1f1;
-}
-
-footer .footer-link:hover {
+  }
+  
+  footer .footer-link:hover {
     color: #FFD700; /* Changement de couleur du lien "Plan du site" */
-}
+  }
 
+  h2 {
+    font-size: 2rem;
+    margin: 1.5rem 0;
+    color: #2B6CB0; /* Bleu ciel profond */
+    text-shadow: 
+      0 1px 3px rgba(255, 255, 255, 0.8), /* Ombre claire */
+      0 2px 6px rgba(43, 108, 176, 0.2); /* Reflet bleu */
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    position: relative;
+    padding-bottom: 10px;
+  }
 
-/* Section pour la page Développeur */
-h2 {
-    font-size: 28px;
-    margin: 20px 0;
-    color: #1f5d7a;
-}
-
-/* Image et vidéo du jour */
-img, video {
+  img, video {
     margin: 20px 0;
     border-radius: 10px;
-}
-
-video {
+  }
+  
+  video {
     max-width: 100%;
     border: 2px solid #ddd;
     border-radius: 10px;
-}
-
-/* Section localisation */
-section {
-    text-align: center; /* Centre le texte */
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centre horizontalement */
-    justify-content: center; /* Centre verticalement si nécessaire */
-    margin-bottom: 25px;
-    margin-top: 25px;
-    padding: 40px;
-    border-radius: 10px;
-    background-color: rgb(255, 255, 255);
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
-    width: 80%; /* Réduit la largeur à 80% de l'élément parent */
-    max-width: 1200px; /* Limite la largeur maximale pour les très grands écrans */
-    margin:25px  auto; /* Centre la section horizontalement */
-}
-
-section:hover {
-    transform: translateY(-5px); /* Légère élévation au survol */
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1); /* Ombre plus marquée */
-    }
-
-
-
-/* Menu Button */
-#menuButton {
-    position: fixed;
-    left: 30px;
-    top: 10px;
-    background-color: #4A6FA5;
-    color: white;
-    padding: 10px;
-    font-size: 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    width: 45px;
-    border: none;
-    outline: none;
-    transition: background-color 0.3s, color 0.3s, transform 0.2s;
-}
-
-#menuButton:hover {
-    background-color: #2C4A73;
-    color: #AEB4DD;
-}
-
-#menuButton:active {
-    transform: scale(0.95);
-}
-
-/* Sidebar */
-.sidebar {
-    position: fixed;
-    left: -150px;
-    top: 60px;
-    width: 40px;
-    height: 40px;
-    background-color: #DEE7F3;
-    padding: 10px;
-    border: 3px solid #4A6FA5;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-    transition: left 0.5s ease-in-out, width 0.3s, height 0.3s;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-/* Ouvrir le menu */
-#sidebar:target {
-    left: 25px;
-    width: 200px;
-    height: 300px;
-}
-
-/* Liste des liens */
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: none;
-}
-
-#sidebar:target ul {
-    display: block;
-}
-
-.sidebar ul li {
-    padding: 10px 0;
-}
-
-.sidebar ul li a {
-    color: #2C4A73;
-    text-decoration: none;
-    font-size: 16px;
-}
-
-.sidebar ul li a:hover {
-    color: #5C85B6;
-}
-
-/* Bouton de fermeture */
-.close-btn {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    font-size: 24px;
-    color: #2C4A73;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-}
-
-/* Responsive Design pour mobile */
-@media (max-width: 600px) {
+  }
+  
+  /* Cartes météo */
+  .meteo-box {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(66, 153, 225, 0.4);
+  }
+  
+  .meteo-horizontal li {
+    background: rgba(235, 248, 255, 0.7);
+    border-left: 3px solid #4299e1;
+  }
+  
+  /* Formulaire */
+  form {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #4299e1;
+  }
+  
+  form input[type="text"] {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #bee3f8;
+    color: #2d3748;
+  }
+  
+  /* Animation soleil */
+  .sun {
+    background: linear-gradient(to right, #f6ad55, #f6e05e);
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
     body {
         padding: 10px;
     }
-
+    
     h1 {
-        font-size: 28px;
+        font-size: 2rem;
     }
-
-    footer {
-        font-size: 16px;
-    }
-
-    footer a {
-        font-size: 18px;
-    }
-
-    h2 {
-        font-size: 24px;
-    }
-
-    section p {
-        font-size: 18px;
-    }
-}
-
- /* Section globale */
-/* From Uiverse.io by zanina-yassine */ 
-.container {
-  width: 250px;
-  height: 250px;
-  padding: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.cloud {
-  width: 250px;
-}
-
-.front {
-  padding-top: 45px;
-  margin-left: 25px;
-  display: inline;
-  position: absolute;
-  z-index: 11;
-  animation: clouds 8s infinite;
-  animation-timing-function: ease-in-out;
-}
-
-.back {
-  margin-top: -30px;
-  margin-left: 150px;
-  z-index: 12;
-  animation: clouds 12s infinite;
-  animation-timing-function: ease-in-out;
-}
-
-.right-front {
-  width: 45px;
-  height: 45px;
-  border-radius: 50% 50% 50% 0%;
-  background-color: #4c9beb;
-  display: inline-block;
-  margin-left: -25px;
-  z-index: 5;
-}
-
-.left-front {
-  width: 65px;
-  height: 65px;
-  border-radius: 50% 50% 0% 50%;
-  background-color: #4c9beb;
-  display: inline-block;
-  z-index: 5;
-}
-
-.right-back {
-  width: 50px;
-  height: 50px;
-  border-radius: 50% 50% 50% 0%;
-  background-color: #4c9beb;
-  display: inline-block;
-  margin-left: -20px;
-  z-index: 5;
-}
-
-.left-back {
-  width: 30px;
-  height: 30px;
-  border-radius: 50% 50% 0% 50%;
-  background-color: #4c9beb;
-  display: inline-block;
-  z-index: 5;
-}
-
-.sun {
-  width: 120px;
-  height: 120px;
-  background: -webkit-linear-gradient(to right, #fcbb04, #fffc00);
-  background: linear-gradient(to right, #fcbb04, #fffc00);
-  border-radius: 60px;
-  display: inline;
-  position: absolute;
-}
-
-.sunshine {
-  animation: sunshines 2s infinite;
-}
-
-@keyframes sunshines {
-  0% {
-    transform: scale(1);
-    opacity: 0.6;
   }
 
-  100% {
-    transform: scale(1.4);
-    opacity: 0;
-  }
-}
-
-@keyframes clouds {
-  0% {
-    transform: translateX(15px);
-  }
-
-  50% {
-    transform: translateX(0px);
-  }
-
-  100% {
-    transform: translateX(15px);
-  }
-}
-
-  
-  /* Formulaire */
-form {
-    margin: 20px auto;
-    padding: 20px;
-    background: rgba(98, 163, 243, 0.2);
-    border-radius: 10px;
-    width: 80%;
-    max-width: 500px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-form label {
-    display: block;
-    font-size: 16px;
-    margin: 10px 0 5px;
-    color: #47c5e8;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-form input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    background: rgb(242, 248, 250);
-    border: none;
-    border-radius: 5px;
-    color: #47c5e8;
-    font-size: 16px;
-    outline: none;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-form input[type="text"]::placeholder {
-    color: rgba(161, 211, 239, 0.7);
-}
-
-form input[type="submit"] {
-    padding: 10px 25px;
-    background: rgba(255, 255, 255, 0.3);
-    border: none;
-    border-radius: 20px;
-    color: #47c5e8;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background 0.3s ease;
-}
-
-form input[type="submit"]:hover {
-    background: rgba(255, 255, 255, 0.5);
-}
-
-/* Section contenant les liens */
-.links-section {
-    display: flex; /* Utilisation de flexbox pour aligner les éléments */
-    flex-direction: column; /* Aligner les liens verticalement */
-    justify-content: center; /* Centrer les éléments verticalement dans la section */
-    align-items: center; /* Centrer les éléments horizontalement */
-    gap: 20px; /* Espacement entre les liens */
-    padding: 20px; /* Ajouter un peu d'espace autour des éléments */
-    background-color: #f4f4f4; /* Couleur de fond douce pour la section */
-    border-radius: 8px; /* Coins arrondis */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère pour un effet moderne */
-}
-
-/* Styles des liens */
-.links-section a {
-    text-decoration: none; /* Supprimer le soulignement par défaut */
-    color: #333; /* Couleur de texte foncée */
-    font-size: 18px; /* Taille de texte agréable */
-    font-weight: 600; /* Police en gras pour un meilleur contraste */
-    padding: 10px 20px; /* Ajouter un peu de padding pour les rendre plus cliquables */
-    border-radius: 5px; /* Coins arrondis pour les liens */
-    transition: background-color 0.3s, color 0.3s; /* Transition douce pour les effets au survol */
-}
-
-/* Effet de survol */
-.links-section a:hover {
-    background-color: #007BFF; /* Couleur de fond lors du survol */
-    color: #fff; /* Changer la couleur du texte en blanc au survol */
-}
-
-/* Style pour les listes de prévisions */
-ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 15px 0;
-}
-#navIndex li{
-    background:rgba(3, 154, 205, 0.7);
-}
-ul li {
-    background: rgba(242, 248, 250, 0.7);
-    margin-bottom: 10px;
-    padding: 12px 15px;
-    border-radius: 5px;
-    border-left: 4px solid #47c5e8;
-    transition: transform 0.2s;
-}
-
-ul li:hover {
-    transform: translateX(5px);
-    background: rgba(242, 248, 250, 0.9);
-}
-
-/* Style pour les prévisions par jour */
-ul li strong {
-    color: #47c5e8;
-    display: block;
-    margin-bottom: 5px;
-    font-size: 1.1em;
-}
-
-.histogramme {
-     max-width: 800px;
-    margin: 30px auto;
-}
-    
-.barre-container {
-    margin: 15px 0;
-    display: flex;
-    align-items: center;
-}
-    
-.ville {
-    width: 150px;
-    font-weight: bold;
-}
-    
-.barre {
-    background: #47c5e8;
-    height: 30px;
-    border-radius: 4px;
-    transition: width 0.5s ease;
-    display: flex;
-    align-items: center;
-    padding-left: 10px;
-    color: white;
-}
-    
-.compteur {
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
-}
-
-
+  /* Boîte météo **/
 .meteo-box {
-    background-color: #f0f8ff;
-    border: 1px solid #ccc;
-    padding: 1rem;
-    border-radius: 10px;
-    max-width: 100%;
-    margin: 1rem auto;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.meteo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.weather-item {
+  background: rgba(255,255,255,0.7);
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.weather-icon {
+  grid-column: 1 / -1;
+  text-align: center;
+}
+
+  header {
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.9); /* Fond blanc semi-transparent */
+    color: #2D3748; /* Texte gris-bleu foncé */
+    padding: 10px;
+    text-align: center;
+    margin: 10px;
+}
+
+
+nav {
+    flex-grow: 1;
     text-align: center;
 }
 
-.meteo-horizontal {
+nav ul {
+    list-style: none;
     display: flex;
     justify-content: center;
-    gap: 1.5rem;
-    list-style-type: none;
-    padding: 0;
-    margin: 1rem 0 0 0;
-    flex-wrap: wrap; /* Pour que ça passe à la ligne sur petits écrans */
+    gap: 20px;
 }
 
-.meteo-horizontal li {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #3182CE; /* Bleu ciel */
+    font-size: 18px;
+    padding: 8px 15px;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+/* Effet hover sur les liens */
+nav ul li a:hover {
+    background: rgba(66, 153, 225, 0.1); /* Fond bleu très léger */
+    color: #2B6CB0; /* Bleu plus foncé */
+    box-shadow: 0 2px 8px rgba(66, 153, 225, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Style de base pour les listes */
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 8px;
+}
+
+.list li {
+  margin: 0;
+  transition: all 0.2s ease;
+}
+
+.list li a {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  border-radius: 6px;
+  background-color: #ffffff; /* Fond blanc pur */
+  color: #1e293b; /* Couleur de texte foncée */
+  border: 1px solid #e2e8f0; /* Bordure légère */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: all 0.2s ease;
+}
+
+/* Effet au survol */
+.list li a:hover {
+  background-color: #f8fafc;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }

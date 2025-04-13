@@ -70,10 +70,15 @@ if (!empty($selectedRegion) && empty($selectedDepartement)) {
                 <?php 
                 // Trier les villes par nom
                 $villes = $data[$selected_region][$selected_departement]['villes'];
-                usort($villes, function($a, $b) {
+                usort($villes, function($a, $b):int {
                     return strcmp($a['nom'], $b['nom']);
                 });
-                foreach ($villes as $ville): ?>
+                $villes_affichees = [];//pour stocker les noms déja affichés
+
+                foreach ($villes as $ville): 
+                    if (in_array($ville['nom'], $villes_affichees)) continue;
+                        $villes_affichees[] = $ville['nom'];
+                    ?>
                     <li>
                     <!--Lien vers la page météo avec tous les paramètres nécessaires (région, département, ville, coordonnées GPS, et style)-->
 

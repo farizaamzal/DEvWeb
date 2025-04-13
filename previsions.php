@@ -17,8 +17,8 @@
         "Grand Est" => "446,227,425,204,393,206,377,158,405,99,429,82,434,103,493,122,513,138,547,143,565,156,540,191,544,232,511,217,479,204",
         "Bourgogne-Franche-Comté" => "436,291,406,312,385,282,354,271,367,183,400,206,428,207,456,225,479,208,514,213,527,240,502,275,467,303,450,299",
         "Auvergne-Rhône-Alpes" => "467,397,458,425,406,420,381,386,321,396,329,365,343,344,332,295,352,283,377,283,402,311,439,296,471,309,508,294,524,361",
-        "Provence-Alpes-Côte d'Azur" => "196,171,210,163,217,176,227,196,210,219,168,204,190,188",
-        "Corse" => "247,203,247,239,235,235,231,217",
+        "Provence-Alpes-Côte d'Azur" => "505,484,480,491,430,473,424,422,459,428,468,399,488,389,501,375,516,393,517,424,546,433",
+        "Corse" => "614,498,620,539,614,577,605,590,587,563,588,526",
         "Occitanie" => "414,458,365,483,339,533,307,519,223,507,242,445,271,436,298,392,336,399,384,390",
         "Nouvelle-Aquitaine" => "186,493,179,319,202,296,240,257,299,299,339,319,296,381,229,440,221,509",
         "Pays de la Loire" => "142,252,159,294,200,303,226,256,267,202,251,186,229,182,213,177,198,188,180,221,147,235",
@@ -74,10 +74,9 @@ $selectedVille = isset($_GET['ville']) ? $_GET['ville'] : '';
 <section>
         <h2>Consultez la météo</h2>
         <p>Entrez les informations ci-dessous pour obtenir les prévisions.</p>
-    </section>
 
     <!-- Formulaire -->
-    <<?php
+    <?php
     // Initialisation de la variable $ancre, qui sera utilisée pour déterminer l'ancre de l'URL.
     // Cela permet de faire défiler la page automatiquement jusqu'à une certaine section après un choix utilisateur.
 
@@ -175,6 +174,7 @@ $selectedVille = isset($_GET['ville']) ? $_GET['ville'] : '';
         <input type="submit" name="submitBtn" value="Afficher la météo" 
             <?php echo empty($selectedVille) ? 'disabled="disabled"' : ''; ?>/>
     </form>
+    </section>
 <!-- Bouton retour en haut -->
 <a href="#" class="back-to-top">↑</a>
 </main>

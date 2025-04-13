@@ -1,191 +1,129 @@
-/* Style Nuit */
+/* Réinitialisation des marges et bordures */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Styles généraux */
 body {
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    background-color: #000000;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='199' viewBox='0 0 100 199'%3E%3Cg fill='%23ffffff' fill-opacity='0.42'%3E%3Cpath d='M0 199V0h1v1.99L100 199h-1.12L1 4.22V199H0zM100 2h-.12l-1-2H100v2z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
-    color: #f4f4f4;
-    margin: 0;
-    text-align:center;
-    padding: 0 25px;
+  background-color: #f0fbff;
+  background-image: url("https://images.unsplash.com/photo-1454789476662-53eb23ba5907?ixlib=rb-4.0.3&auto=format&fit=crop&w=1080&q=80");
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  padding: 20px;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-.dark-mode:hover {
-    background: #222;
+h1 {
+  font-size: 2.5rem; /* 40px */
+  margin: 0 0 1.5rem 0; /* 24px en bas */
+  color: #F1C40F; /* Jaune-éclair */
+  text-shadow: 
+      0 2px 4px rgba(0, 0, 0, 0.5),
+      0 0 10px rgba(241, 196, 15, 0.3); /* Effet lumineux */
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  position: relative;
+  padding-bottom: 15px;
+  line-height: 1.2;
 }
 
-
-/* Heading */
-h2 {
-  font-size: 28px;
-  margin: 20px 0;
-  color: #1f5d7a;
+p {
+  font-size: 18px;
+  line-height: 1.6;
+  margin: 15px 0;
 }
 
-
-/* Table */
-table {
-    width: 80%;
-    margin: 20px auto;
-    border-collapse: separate;
-    border-spacing: 0;
-    background-color: #333;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    overflow: hidden;
-    border: 2px solid #555;
+/* Effet hover sur les boutons jour/nuit */
+.light-mode:hover {
+  background: lightgray;
 }
-
-th, td {
-    border: 2px solid #555;
-    padding: 12px;
-    text-align: center;
-}
-
-th {
-    background-color: #4A6FA5;
-    color: white;
-    font-weight: bold;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
-
-tr:last-child td:first-child {
-    border-bottom-left-radius: 10px;
-}
-
-tr:last-child td:last-child {
-    border-bottom-right-radius: 10px;
-}
-
-tr:nth-child(even) {
-    background-color: #444;
-}
-
-section {
-    text-align: center; /* Centre le texte */
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centre horizontalement */
-    justify-content: center; /* Centre verticalement si nécessaire */
-    margin-bottom: 25px;
-    margin-top: 25px;
-    padding: 40px;
-    border-radius: 10px;
-    background-color: #bfc0c0;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
-    width: 80%; /* Réduit la largeur à 80% de l'élément parent */
-    max-width: 1200px; /* Limite la largeur maximale pour les très grands écrans */
-    margin:25px  auto; /* Centre la section horizontalement */
-}
-
-section:hover {
-    transform: translateY(-5px); /* Légère élévation au survol */
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1); /* Ombre plus marquée */
-    }
-
 
 footer {
-    margin-top: 40px;
-    font-size: 18px;
-    text-align: center;
-    padding: 20px;
-    background-color: rgb(112, 182, 239); /* Couleur du fond identique à celle du header */
-    color: white;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05); /* Ombre légère */
+  margin-top: 40px;
+  font-size: 18px;
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  color: white;
+  border-top: 1px solid #F1C40F;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05); /* Ombre légère */
 }
 
 footer a {
-    color: white; /* Lien en blanc */
-    text-decoration: none; /* Enlève le souligné */
-    font-weight: bold;
-    margin: 0 10px; /* Espacement entre les liens */
-    transition: color 0.3s;
+  color: white; /* Lien en blanc */
+  text-decoration: none; /* Enlève le souligné */
+  font-weight: bold;
+  margin: 0 10px; /* Espacement entre les liens */
+  transition: color 0.3s;
 }
 
 footer a:hover {
-    color: #FFD700; /* Changement de couleur au survol */
+  color: #FFD700; /* Changement de couleur au survol */
 }
 
 footer div {
-    margin: 5px 0; /* Espacement entre les éléments */
+  margin: 5px 0; /* Espacement entre les éléments */
 }
 
 footer img {
-    margin: 10px 0; /* Espacement autour du logo */
+  margin: 10px 0; /* Espacement autour du logo */
 }
 
 footer .footer-link {
-    color: #f1f1f1;
+  color: #f1f1f1;
 }
 
 footer .footer-link:hover {
-    color: #FFD700; /* Changement de couleur du lien "Plan du site" */
+  color: #FFD700; /* Changement de couleur du lien "Plan du site" */
 }
 
-/* Sidebar */
-.sidebar {
-    position: fixed;
-    left: -150px;
-    top: 60px;
-    width: 40px;
-    height: 40px;
-    background-color: #DEE7F3;
-    padding: 10px;
-    border: 3px solid #4A6FA5;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-    transition: left 0.5s ease-in-out, width 0.3s, height 0.3s;
-    border-radius: 10px;
-    overflow: hidden;
-}
 
-/* Ouvrir le menu */
-#sidebar:target {
-    left: 25px;
-    width: 200px;
-    height: 300px;
+/* Section pour la page Développeur */
+h2 {
+  font-size: 2rem; /* 32px en rem units */
+  margin: 1.5rem 0; /* 24px en rem */
+  color: #F1C40F; /* Jaune-éclair */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  position: relative;
+  padding-bottom: 10px;
 }
-
-/* Liste des liens */
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: none;
-}
-
-#sidebar:target ul {
-    display: block;
-}
-
-.sidebar ul li {
-    padding: 10px 0;
-}
-
-.sidebar ul li a {
-    color: #f4f4f4;
-    text-decoration: none;
-    font-size: 16px;
-}
-
-.sidebar ul li a:hover {
-    color: #AEB4DD;
-}
-
 
 /* Image et vidéo du jour */
 img, video {
-    margin: 20px 0;
-    border-radius: 10px;
+  margin: 20px 0;
+  border-radius: 10px;
 }
 
 video {
-    max-width: 100%;
-    border: 2px solid #ddd;
-    border-radius: 10px;
+  max-width: 100%;
+  border: 2px solid #ddd;
+  border-radius: 10px;
 }
 
+/* Section localisation */
+section {
+  background: rgba(26, 31, 43, 0.85);
+  color: #ECF0F1;
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid rgba(241, 196, 15, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  max-width: 800px;
+  margin: 2rem auto;
+}
 
+section:hover {
+  transform: translateY(-5px); /* Légère élévation au survol */
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1); /* Ombre plus marquée */
+  }
 
 /* Responsive Design pour mobile */
 @media (max-width: 600px) {
@@ -326,146 +264,313 @@ animation: sunshines 2s infinite;
 }
 
 
-/* Formulaire */
+/* Formulaire - Version Orage Électrique */
 form {
-  margin: 20px auto;
-  padding: 20px;
-  background: rgba(98, 163, 243, 0.2);
-  border-radius: 10px;
-  width: 80%;
+  margin: 30px auto;
+  padding: 25px;
+  background: rgba(26, 31, 43, 0.9); /* Fond bleu nuit semi-transparent */
+  backdrop-filter: blur(6px); /* Effet verre */
+  border-radius: 12px;
+  width: 85%;
   max-width: 500px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(52, 152, 219, 0.3); /* Bordure bleue subtile */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
 form label {
   display: block;
-  font-size: 16px;
-  margin: 10px 0 5px;
-  color: #47c5e8;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  font-size: 1.1rem;
+  margin: 15px 0 8px;
+  color: #F1C40F; /* Jaune-éclair pour les labels */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  font-weight: 500;
 }
 
 form input[type="text"] {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  background: rgb(242, 248, 250);
-  border: none;
-  border-radius: 5px;
-  color: #47c5e8;
-  font-size: 16px;
+  padding: 12px 15px;
+  margin-bottom: 18px;
+  background: rgba(255, 255, 255, 0.1); /* Fond semi-transparent */
+  border: 1px solid rgba(52, 152, 219, 0.5); /* Bordure bleue */
+  border-radius: 8px;
+  color: #ECF0F1; /* Texte gris clair */
+  font-size: 1rem;
   outline: none;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+form input[type="text"]:focus {
+  border-color: #F1C40F; /* Jaune au focus */
+  box-shadow: 0 0 0 2px rgba(241, 196, 15, 0.3);
 }
 
 form input[type="text"]::placeholder {
-  color: rgba(161, 211, 239, 0.7);
+  color: rgba(200, 220, 240, 0.6); /* Placeholder plus visible */
 }
 
 form input[type="submit"] {
-  padding: 10px 25px;
-  background: rgba(255, 255, 255, 0.3);
-  border: none;
-  border-radius: 20px;
-  color: #47c5e8;
+  padding: 12px 30px;
+  background: rgba(241, 196, 15, 0.2); /* Fond jaune très transparent */
+  border: 1px solid #F1C40F; /* Bordure jaune */
+  border-radius: 25px;
+  color: #F1C40F; /* Texte jaune */
   cursor: pointer;
-  font-size: 16px;
-  transition: background 0.3s ease;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 form input[type="submit"]:hover {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(241, 196, 15, 0.3); /* Jaune plus visible */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(241, 196, 15, 0.3);
 }
 
-/* Section contenant les liens */
+form input[type="submit"]:active {
+  transform: translateY(1px);
+}
+/* Section contenant les liens - Version Orage Électrique */
 .links-section {
-  display: flex; /* Utilisation de flexbox pour aligner les éléments */
-  flex-direction: column; /* Aligner les liens verticalement */
-  justify-content: center; /* Centrer les éléments verticalement dans la section */
-  align-items: center; /* Centrer les éléments horizontalement */
-  gap: 20px; /* Espacement entre les liens */
-  padding: 20px; /* Ajouter un peu d'espace autour des éléments */
-  background-color: #f4f4f4; /* Couleur de fond douce pour la section */
-  border-radius: 8px; /* Coins arrondis */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère pour un effet moderne */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  padding: 25px;
+  border-radius: 12px;
+  background: rgba(26, 31, 43, 0.85); /* Fond bleu nuit semi-transparent */
+  backdrop-filter: blur(8px); /* Effet verre */
+  border: 1px solid rgba(241, 196, 15, 0.3); /* Bordure jaune subtile */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); /* Ombre plus prononcée */
+  max-width: 600px; /* Largeur maximale pour éviter l'étalement */
+  margin: 2rem auto; /* Centrage vertical et horizontal */
+  color: #ECF0F1;
 }
 
 /* Styles des liens */
 .links-section a {
-  text-decoration: none; /* Supprimer le soulignement par défaut */
-  color: #333; /* Couleur de texte foncée */
-  font-size: 18px; /* Taille de texte agréable */
-  font-weight: 600; /* Police en gras pour un meilleur contraste */
-  padding: 10px 20px; /* Ajouter un peu de padding pour les rendre plus cliquables */
-  border-radius: 5px; /* Coins arrondis pour les liens */
-  transition: background-color 0.3s, color 0.3s; /* Transition douce pour les effets au survol */
+  text-decoration: none;
+  color: #ECF0F1; /* Texte gris clair */
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 12px 30px;
+  border-radius: 8px;
+  width: 100%;
+  text-align: center;
+  transition: all 0.3s ease;
+  background: rgba(52, 73, 94, 0.5); /* Fond bleu-gris semi-transparent */
+  border: 1px solid rgba(52, 152, 219, 0.3); /* Bordure bleue */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* Effet de survol */
 .links-section a:hover {
-  background-color: #007BFF; /* Couleur de fond lors du survol */
-  color: #fff; /* Changer la couleur du texte en blanc au survol */
+  background: rgba(241, 196, 15, 0.2); /* Fond jaune très transparent */
+  color: #F1C40F; /* Texte jaune */
+  border-color: #F1C40F; /* Bordure jaune */
+  transform: translateY(-3px); /* Légère élévation */
+  box-shadow: 0 5px 15px rgba(241, 196, 15, 0.2);
 }
+
+/* Effet quand le lien est actif */
+.links-section a:active {
+  transform: translateY(1px);
+}
+
 
 /* Style pour les listes de prévisions */
 ul {
   list-style-type: none;
   padding: 0;
-  margin: 15px 0;
+  margin: 1.5rem 0;
+  display: grid;
+  gap: 0.8rem;
 }
 #navIndex li{
-  background:rgba(3, 154, 205, 0.7);
+  background: rgba(52, 152, 219, 0.6) !important;
+  border-left: 4px solid #F1C40F;
 }
 ul li {
-  background: rgba(242, 248, 250, 0.7);
-  margin-bottom: 10px;
-  padding: 12px 15px;
-  border-radius: 5px;
-  border-left: 4px solid #47c5e8;
-  transition: transform 0.2s;
-  color: black;
+  background: rgba(26, 31, 43, 0.7);
+  backdrop-filter: blur(4px);
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  border-left: 4px solid #3498DB;
+  transition: all 0.3s ease-out;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  color: #ECF0F1;
 }
 
 ul li:hover {
-  transform: translateX(5px);
-  background: rgba(242, 248, 250, 0.9);
+  transform: translateX(8px);
+  background: rgba(52, 73, 94, 0.8);
+  border-left-color: #F1C40F;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 /* Style pour les prévisions par jour */
 ul li strong {
-  color: #47c5e8;
+  color: #F1C40F;
   display: block;
-  margin-bottom: 5px;
-  font-size: 1.1em;
+  margin-bottom: 0.5rem;
+  font-size: 1.15rem;
+  font-weight: 600;
 }
-    .histogramme {
-        max-width: 800px;
-        margin: 30px auto;
-    }
-    
-    .barre-container {
-        margin: 15px 0;
-        display: flex;
-        align-items: center;
-    }
-    
-    .ville {
-        width: 150px;
-        font-weight: bold;
-    }
-    
-    .barre {
-        background: #47c5e8;
-        height: 30px;
-        border-radius: 4px;
-        transition: width 0.5s ease;
-        display: flex;
-        align-items: center;
-        padding-left: 10px;
-        color: white;
-    }
-    
-    .compteur {
-        text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
-    }
-    
+
+.histogramme {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: rgba(26, 31, 43, 0.8);
+  backdrop-filter: blur(6px);
+  border-radius: 12px;
+  border: 1px solid rgba(52, 152, 219, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.barre-container {
+  margin: 1.25rem 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ville {
+  width: 180px;
+  font-weight: 600;
+  color: #F1C40F;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  font-size: 1.05rem;
+}
+
+.barre {
+  background: linear-gradient(90deg, 
+      #3498DB, 
+      #47c5e8);
+  height: 32px;
+  border-radius: 6px;
+  transition: width 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+  color: white;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+  box-shadow: 
+      inset 2px 0 8px rgba(255,255,255,0.2),
+      0 2px 6px rgba(0,0,0,0.2);
+  position: relative;
+  overflow: hidden;
+}
+  
+.compteur {
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+}
+
+.meteo-box {
+  background-color: rgba(26, 31, 43, 0.9); /* Votre couleur */
+  color: #f8fafc; /* Texte presque blanc */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Bordure subtile */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Ombre plus prononcée */
+}
+
+.meteo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.weather-item {
+  background: rgba(39, 44, 59, 0.7); /* Fond légèrement plus clair que le parent */
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.weather-icon {
+  grid-column: 1 / -1;
+  text-align: center;
+}
+
+
+
+header {
+  border-radius: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(26, 31, 43, 0.85);
+  color: white;
+  padding: 10px;
+  text-align: center;
+  margin: 10px; /* Ajoute un espace en haut, à gauche et à droite */
+}
+
+nav {
+  flex-grow: 1;
+  text-align: center;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+nav ul li {
+  display: inline;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  padding: 5px 10px;
+  transition: color 0.3s, background 0.3s, border-radius 0.3s;
+}
+
+/* Effet hover sur les liens */
+nav ul li a:hover {
+  background: white;
+  color: rgb(112, 182, 239);
+  border-radius: 10px;
+}
+/* Style de base pour les listes */
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 8px;
+}
+
+.list li {
+  margin: 0;
+  transition: all 0.2s ease;
+}
+
+.list li a {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  border-radius: 6px;
+  background-color: #605c5c; /* Fond blanc pur */
+  color: #eceff4; /* Couleur de texte */
+  border: 1px solid #e2e8f0; /* Bordure légère */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: all 0.2s ease;
+}
+
+/* Effet au survol */
+.list li a:hover {
+  background-color: #c1cbd6;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+a{
+  color:white;
+}
