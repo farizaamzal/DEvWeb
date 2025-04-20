@@ -8,7 +8,7 @@
 
 ## Introduction
 
-Bienvenue sur le site web de notre projet de développement web : Météo&Climat.
+Bienvenue sur le site web de notre projet de développement web : [Météo&Climat](https://farizaamzal.alwaysdata.net)
 Ce projet, réalisé dans le cadre de l'UE Web (L2 Informatique, S4), est une application web interactive dédiée aux prévisions météorologiques en France. Elle permet aux utilisateurs de consulter la météo via une carte interactive ou une sélection par localité, d'explorer des statistiques sur les consultations, et d'accéder à des contenus spécialisés comme l'image astronomique du jour de la NASA. Le site est conçu pour être ergonomique, esthétique, et multilingue (français/anglais), avec un mode clair/sombre personnalisable.
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
