@@ -1,5 +1,14 @@
 <?php
+/**
+ * @file functions.inc.php
+ * @brief Fichier contenant les fonctions utilitaires pour le site Météo&Climat
+ * @author Fariza Amzal , Nadjib Moussaoui 
+ * @version 1.0
+ * @date Avril 2025
+ * @details Fournit des fonctions pour interagir avec les APIs (NASA, OpenWeatherMap, GeoPlugin, ipinfo.io, WhatIsMyIP), gérer un compteur de visites, manipuler des fichiers CSV, organiser les données géographiques, sauvegarder les consultations, afficher des images aléatoires, et récupérer l'IP et la localisation des utilisateurs. Utilisé dans index.php, previsions.php, regions.php, meteo.php, tech.php, et statistiques.php.
+ */
 
+ 
 /**
  * Fonction pour obtenir les données de l'API NASA (APOD).
  * Cette fonction récupère les données d'image de la NASA du jour (Astronomy Picture of the Day).
@@ -216,10 +225,10 @@ function construire_regions_departements_villes($fichier_regions, $fichier_depar
     }
 
     foreach ($villes as $ville) {
-        $code_dep = $ville["department_number"]; // Remplacé CODE_DEP par department_number
-        $nom_ville = $ville["city_code"]; // Remplacé NOM_VILLE par city
-        $lat = $ville["latitude"]; // Remplacé LATITUDE par lattitude
-        $lon = $ville["longitude"]; // Remplacé LONGITUDE par longitude
+        $code_dep = $ville["department_number"]; 
+        $nom_ville = $ville["city_code"]; 
+        $lat = $ville["latitude"]; 
+        $lon = $ville["longitude"]; 
         foreach ($resultat as $nom_region => &$deps) {
             if (isset($deps[$code_dep])) {
                 $deps[$code_dep]["villes"][] = [
@@ -512,7 +521,7 @@ function afficherImageAleatoire($dossier = 'photos/', $extensions = ['jpg', 'jpe
         // Affiche l’image dans une balise <figure> avec une <figcaption> contenant le nom du fichier
         echo '<aside>';
         echo '  <figure>';
-        echo '      <img src="' . $cheminImage . '" alt="Image aléatoire" style="width: 250px; height: auto;">';
+        echo '      <img src="' . $cheminImage . '" alt="Image aléatoire" style="width: 250px; height: auto;"/>';
         echo '      <figcaption>' . $nomImage . '</figcaption>';
         echo '  </figure>';
         echo '</aside>';
@@ -585,6 +594,8 @@ function getLocationFromIP($ip) {
 
     return null;
 }
+
+
 
 
 ?>
